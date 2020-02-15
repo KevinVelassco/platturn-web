@@ -1,6 +1,6 @@
 <template src="./Usuarios.html" />
 <script>
-import { mapState, mapMutations, mapActions } from "vuex";
+import { mapMutations } from "vuex";
 export default {
   data() {
     return {

@@ -12,13 +12,9 @@ export default {
   },
   actions: {
     async obtenerDatosUsuarioLogin({ commit }) {
-      try {
-        const id = "5e33901a2503133da8a3e8ca";
-        const response = await axios.get(`/usuario/${id}`);
-        commit("datosUsuarioLogin", response.data);
-      } catch (e) {
-        console.error(e);
-      }
+      const id = "5e33901a2503133da8a3e8ca";
+      const response = await axios.get(`/usuario/${id}`);
+      commit("datosUsuarioLogin", response.data);
     }
   }
 };
