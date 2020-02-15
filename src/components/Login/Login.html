@@ -11,8 +11,8 @@
                 </v-col>
                 <v-card-text>
                     <v-form v-model="valid">
-                        <v-text-field v-model="email" :rules="emailRules" label="E-mail" required></v-text-field>
-                        <v-text-field v-model="password" :rules="passwordRules" label="Contraseña" required>
+                        <v-text-field prepend-icon="email" v-model="email" :rules="emailRules" label="E-mail" required></v-text-field>
+                        <v-text-field prepend-icon="vpn_key" v-model="password" :rules="passwordRules" label="Contraseña" required>
                         </v-text-field>
                         <div>{{mensaje}}</div>                        
                         <v-col align="center">
