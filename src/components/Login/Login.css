@@ -1,0 +1,11 @@
+#login{
+    margin: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+#login.img{
+    background-image: url('../../assets/awork.jpg');
+    background-size: cover;
+    background-position: top center;
+    
+}
