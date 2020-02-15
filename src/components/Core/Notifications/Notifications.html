@@ -1,0 +1,23 @@
+<v-container>
+    <v-row>
+        <v-col cols="12">
+            <v-snackbar :color="color" 
+                        :bottom="bottom" 
+                        :top="top" 
+                        :left="left" 
+                        :right="right"
+                        v-model="snackbar"
+                        dark>
+                <v-icon color="white" class="mr-3">
+                    mdi-bell-plus
+                </v-icon>
+                <div>
+                    <b>{{mensaje}}</b>
+                </div>
+                <v-icon size="16" @click="snackbar = false">
+                    mdi-close-circle
+                </v-icon>
+            </v-snackbar>
+        </v-col>
+    </v-row>
+</v-container>

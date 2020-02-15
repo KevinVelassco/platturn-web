@@ -1,60 +1,93 @@
 <template>
   <v-app>
-    <v-app-bar
-      app
-      color="primary"
-      dark
-    >
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
+    <div>
+      <v-toolbar short dark class="grey darken-3">
+        <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+        <v-toolbar-title><v-btn to="/"> @work</v-btn></v-toolbar-title>
+        <v-spacer></v-spacer>
+        <v-btn :to="{ name: 'login' }">
+          <v-icon>power_settings_new</v-icon>
+          Cerrar Sesión
+        </v-btn>
+      </v-toolbar>
 
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
-      </div>
+      <v-navigation-drawer v-model="drawer" absolute temporary>
+        <v-list-item>
+          <v-list-item-avatar>
+            <v-img src="https://randomuser.me/api/portraits/men/78.jpg"></v-img>
+          </v-list-item-avatar>
 
-      <v-spacer></v-spacer>
+          <v-list-item-content>
+            <v-list-item-title>{{ usuario.primerNombre }}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
 
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
-    </v-app-bar>
+        <v-divider></v-divider>
 
-    <v-content>
-      <HelloWorld/>
-    </v-content>
+        <v-list dense>
+          <v-list-item
+            v-for="item in menu"
+            :key="item.title"
+            link
+            :to="{ name: item.name }"
+          >
+            <v-list-item-icon>
+              <v-icon>{{ item.icon }}</v-icon>
+            </v-list-item-icon>
+
+            <v-list-item-content>
+              <v-list-item-title>{{ item.title }}</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list>
+      </v-navigation-drawer>
+    </div>
+    <v-container fluid>
+      <!--<v-alert
+        v-model="activo"
+        border="left"
+        dark
+        dismissible
+        :type="alert.type">
+          {{alert.message}}
+      </v-alert>-->
+      <Notifications :color="color" :mensaje="mensaje" :snackbar="snackbar" />
+
+      <router-view />
+    </v-container>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld';
-
+import { mapState, mapActions } from "vuex";
+import Notifications from "./components/Core/Notifications/Notifications";
 export default {
-  name: 'App',
-
+  name: "App",
   components: {
-    HelloWorld,
+    Notifications
   },
-
-  data: () => ({
-    //
-  }),
+  data() {
+    return {
+      drawer: false,
+      menu: [
+        {
+          icon: "dashboard",
+          title: "Usuarios",
+          path: "/usuarios",
+          name: "usuarios"
+        }
+      ]
+    };
+  },
+  computed: {
+    ...mapState("UsuarioLogueado", ["usuario"]),
+    ...mapState("Mensajes", ["color", "mensaje", "snackbar"])
+  },
+  methods: {
+    ...mapActions("UsuarioLogueado", ["obtenerDatosUsuarioLogin"])
+  },
+  created() {
+    //this.obtenerDatosUsuarioLogin();
+  }
 };
 </script>
