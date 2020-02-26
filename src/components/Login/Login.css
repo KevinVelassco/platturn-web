@@ -4,8 +4,19 @@
     padding-bottom: 0 !important;
 }
 #login.img{
-    background-image: url('../../assets/awork.jpg');
+    /*background-image: url('https://res.cloudinary.com/twenty20/private_images/t_watermark-criss-cross-10/v1538756224000/photosp/50870cf4-e4a7-46e6-b6c7-42fa4208c8a7/stock-photo-city-skyline-night-luxury-modern-downtown-dubai-view-buildings-50870cf4-e4a7-46e6-b6c7-42fa4208c8a7.jpg');*/
     background-size: cover;
-    background-position: top center;
-    
+    background-position: top center;    
+}
+.card-title{
+    margin-top: 50px !important;
+    z-index: 1;
+    width: 380px;
+}
+.card-content{
+    margin-top: -50px !important;
+    padding-top: 60px !important;
+}
+.cols{
+    margin-top: -50px !important;
 }

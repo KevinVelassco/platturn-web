@@ -1,38 +1,31 @@
 <template src="./Notifications.html" />
 <script>
+import { mapMutations } from "vuex";
 export default {
   name: "Notifications",
   data: () => ({
-    colors: ["info", "success", "warning", "error"],
     top: true,
     bottom: false,
     left: false,
-    right: true,
-    snackbar: true
+    right: true
   }),
   props: {
     color: String,
-    mensaje: String
+    mensaje: String,
+    icono: String
+  },
+  computed: {
+    snackbar: {
+      get: function() {
+        return this.$store.state.messages.snackbar;
+      },
+      set: function(newValue) {
+        this.$store.state.messages.snackbar = newValue;
+      }
+    }
   },
   methods: {
-    snack(...args) {
-      this.top = false;
-      this.bottom = false;
-      this.left = false;
-      this.right = false;
-
-      for (let i of args) {
-        this[i] = true;
-      }
-
-      for (let i of this.colors) {
-        if (i !== this.color) {
-          this.color = "error";
-        }
-      }
-
-      this.snackbar = true;
-    }
+    ...mapMutations("messages", ["closemessage"])
   }
 };
 </script>

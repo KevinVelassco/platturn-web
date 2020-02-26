@@ -6,15 +6,14 @@
                         :top="top" 
                         :left="left" 
                         :right="right"
-                        v-model="snackbar"
-                        dark>
-                <v-icon color="white" class="mr-3">
-                    mdi-bell-plus
+                        v-model="snackbar">
+                <v-icon color="white" size="40">
+                    {{icono}}
                 </v-icon>
                 <div>
-                    <b>{{mensaje}}</b>
+                    <p class="font-weight-bold mt-5">{{mensaje}}</p>
                 </div>
-                <v-icon size="16" @click="snackbar = false">
+                <v-icon size="20" @click="closemessage">
                     mdi-close-circle
                 </v-icon>
             </v-snackbar>
