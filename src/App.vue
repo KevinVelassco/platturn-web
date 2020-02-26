@@ -5,7 +5,7 @@
         <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
         <v-toolbar-title><v-btn to="/"> @work</v-btn></v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-btn :to="{ name: 'login' }">
+        <v-btn @click="cerrarSesion">
           <v-icon>power_settings_new</v-icon>
           Cerrar Sesión
         </v-btn>
@@ -18,7 +18,7 @@
           </v-list-item-avatar>
 
           <v-list-item-content>
-            <v-list-item-title>{{ usuario.primerNombre }}</v-list-item-title>
+            <v-list-item-title>Andres</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
 
@@ -43,16 +43,7 @@
       </v-navigation-drawer>
     </div>
     <v-container fluid>
-      <!--<v-alert
-        v-model="activo"
-        border="left"
-        dark
-        dismissible
-        :type="alert.type">
-          {{alert.message}}
-      </v-alert>-->
-      <Notifications :color="color" :mensaje="mensaje" :snackbar="snackbar" />
-
+      <Notifications :color="color" :mensaje="mensaje" :icono="icono" />
       <router-view />
     </v-container>
   </v-app>
@@ -73,21 +64,19 @@ export default {
         {
           icon: "dashboard",
           title: "Usuarios",
-          path: "/usuarios",
           name: "usuarios"
         }
       ]
     };
   },
   computed: {
-    ...mapState("UsuarioLogueado", ["usuario"]),
-    ...mapState("Mensajes", ["color", "mensaje", "snackbar"])
+    ...mapState("messages", ["color", "mensaje", "icono"])
   },
   methods: {
-    ...mapActions("UsuarioLogueado", ["obtenerDatosUsuarioLogin"])
+    ...mapActions("userLogin", ["cerrarSesion", "leerToken"])
   },
   created() {
-    //this.obtenerDatosUsuarioLogin();
+    this.leerToken();
   }
 };
 </script>

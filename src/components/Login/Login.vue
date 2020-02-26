@@ -1,11 +1,11 @@
 <template src="./Login.html" />
 <script>
+import { mapActions } from "vuex";
 export default {
   name: "Login",
   data: () => ({
     valid: true,
-    email: "",
-    password: "",
+    user: { email: "kevinvelassco@gmail.com", password: "123456" },
     emailRules: [
       v => !!v || "Campo obligatorio",
       v => /.+@.+/.test(v) || "El correo es invalido"
@@ -22,20 +22,14 @@ export default {
                     this.snackbar = true                   
                 }
             }*/
-    async validate() {
+    ...mapActions("userLogin", ["guardarUsuario"]),
+    async login() {
       try {
-        console.log(process.env.VUE_APP_URL);
-        const response = await this.axios.post("/api/users/login", {
-          email: this.email,
-          password: this.password
-        });
-        console.log(response);
-        //this.notas.push(response.data);
-        //this.addmessage("success","Registro Creado Exitosamente.");
-        //store.commit('addmessage', 'sucess', "funcional")
+        const response = await this.axios.post("/api/users/login", this.user);
+        this.guardarUsuario(response.data);
       } catch (e) {
-        //console.log(Object.keys(e))
-        this.mensaje = e.response.data.message;
+        console.log("entro al catch");
+        this.mensaje = "e.response.data.message";
       }
     }
   }
