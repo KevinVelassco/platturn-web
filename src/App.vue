@@ -1,82 +1,85 @@
 <template>
-  <v-app>
-    <div>
-      <v-toolbar short dark class="grey darken-3">
-        <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
-        <v-toolbar-title><v-btn to="/"> @work</v-btn></v-toolbar-title>
-        <v-spacer></v-spacer>
-        <v-btn @click="cerrarSesion">
-          <v-icon>power_settings_new</v-icon>
-          Cerrar Sesión
-        </v-btn>
-      </v-toolbar>
-
-      <v-navigation-drawer v-model="drawer" absolute temporary>
-        <v-list-item>
-          <v-list-item-avatar>
-            <v-img src="https://randomuser.me/api/portraits/men/78.jpg"></v-img>
-          </v-list-item-avatar>
-
-          <v-list-item-content>
-            <v-list-item-title>Andres</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-
-        <v-divider></v-divider>
-
-        <v-list dense>
-          <v-list-item
-            v-for="item in menu"
-            :key="item.title"
-            link
-            :to="{ name: item.name }"
+  <div id="app">
+    <nav class="navbar navbar-expand navbar-dark bg-dark" v-if="currentUser">
+      <div class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <router-link to="/home" class="nav-link">
+            <font-awesome-icon icon="home" />Home
+          </router-link>
+        </li>
+        <li v-if="showAdminBoard" class="nav-item">
+          <router-link to="/admin" class="nav-link">Admin Board</router-link>
+        </li>
+        <li v-if="showModeratorBoard" class="nav-item">
+          <router-link to="/mod" class="nav-link">Moderator Board</router-link>
+        </li>
+        <li class="nav-item">
+          <router-link v-if="currentUser" to="/user" class="nav-link"
+            >User</router-link
           >
-            <v-list-item-icon>
-              <v-icon>{{ item.icon }}</v-icon>
-            </v-list-item-icon>
+        </li>
+      </div>
 
-            <v-list-item-content>
-              <v-list-item-title>{{ item.title }}</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list>
-      </v-navigation-drawer>
-    </div>
-    <v-container fluid>
-      <Notifications :color="color" :mensaje="mensaje" :icono="icono" />
+      <div v-if="!currentUser" class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <router-link to="/register" class="nav-link">
+            <font-awesome-icon icon="user-plus" />Sign Up
+          </router-link>
+        </li>
+        <li class="nav-item">
+          <router-link to="/login" class="nav-link">
+            <font-awesome-icon icon="sign-in-alt" />Login
+          </router-link>
+        </li>
+      </div>
+
+      <div v-if="currentUser" class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <router-link to="/profile" class="nav-link">
+            <font-awesome-icon icon="user" />
+            {{ currentUser.username }}
+          </router-link>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href @click.prevent="logOut">
+            <font-awesome-icon icon="sign-out-alt" />LogOut
+          </a>
+        </li>
+      </div>
+    </nav>
+
+    <div class="container">
       <router-view />
-    </v-container>
-  </v-app>
+    </div>
+  </div>
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
-import Notifications from "./components/Core/Notifications/Notifications";
 export default {
-  name: "App",
-  components: {
-    Notifications
-  },
-  data() {
-    return {
-      drawer: false,
-      menu: [
-        {
-          icon: "dashboard",
-          title: "Usuarios",
-          name: "usuarios"
-        }
-      ]
-    };
-  },
   computed: {
-    ...mapState("messages", ["color", "mensaje", "icono"])
+    currentUser() {
+      return this.$store.state.auth.user;
+    },
+    showAdminBoard() {
+      if (this.currentUser && this.currentUser.roles) {
+        return this.currentUser.roles.includes("ROLE_ADMIN");
+      }
+
+      return false;
+    },
+    showModeratorBoard() {
+      if (this.currentUser && this.currentUser.roles) {
+        return this.currentUser.roles.includes("ROLE_MODERATOR");
+      }
+
+      return false;
+    }
   },
   methods: {
-    ...mapActions("userLogin", ["cerrarSesion", "leerToken"])
-  },
-  created() {
-    this.leerToken();
+    logOut() {
+      this.$store.dispatch("auth/logout");
+      this.$router.push("/login");
+    }
   }
 };
 </script>

@@ -1,27 +1,38 @@
 import Vue from "vue";
 import App from "./App.vue";
-import router from "./router";
+import { router } from "./router";
 import store from "./store";
-import vuetify from "./plugins/vuetify";
-import "@babel/polyfill";
-import "roboto-fontface/css/roboto/roboto-fontface.css";
-import "@mdi/font/css/materialdesignicons.css";
-import "material-design-icons-iconfont/dist/material-design-icons.css";
-import axios from "axios";
-import VueAxios from "vue-axios";
+import "bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { ValidationProvider, extend } from "vee-validate";
+import { required } from "vee-validate/dist/rules";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import {
+  faHome,
+  faUser,
+  faUserPlus,
+  faSignInAlt,
+  faSignOutAlt
+} from "@fortawesome/free-solid-svg-icons";
 
-Vue.use(VueAxios, axios);
-
-//Se agrega la URL base de nuestra API
-axios.defaults.baseURL = process.env.VUE_APP_URL;
-//axios.defaults.baseURL = 'http://localhost:3000/api'
-//axios.defaults.baseURL = 'http://192.168.101.8:3000/api'
+library.add(faHome, faUser, faUserPlus, faSignInAlt, faSignOutAlt);
 
 Vue.config.productionTip = false;
+
+extend("required", {
+  ...required,
+  message: "This field is required"
+});
+
+// Vue.use(VeeValidate);
+Vue.component("font-awesome-icon", FontAwesomeIcon);
 
 new Vue({
   router,
   store,
-  vuetify,
+  components: {
+    ValidationProvider
+  },
   render: h => h(App)
 }).$mount("#app");
