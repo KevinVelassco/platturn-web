@@ -6,13 +6,28 @@
       </h3>
     </header>
     <p>
-      <strong>Token:</strong>
-      {{ currentUser.accessToken.substring(0, 20) }} ...
-      {{ currentUser.accessToken.substr(currentUser.accessToken.length - 20) }}
-    </p>
-    <p>
       <strong>Id:</strong>
       {{ currentUser.id }}
+    </p>
+    <p>
+      <strong>authUid:</strong>
+      {{ currentUser.authUid }}
+    </p>
+    <p>
+      <strong>Documento:</strong>
+      {{ currentUser.document }}
+    </p>
+    <p>
+      <strong>Nombre completo:</strong>
+      {{ currentUser.fullName }}
+    </p>
+    <p>
+      <strong>Dirección:</strong>
+      {{ currentUser.address }}
+    </p>
+    <p>
+      <strong>Telefono:</strong>
+      {{ currentUser.phone }}
     </p>
     <p>
       <strong>Email:</strong>

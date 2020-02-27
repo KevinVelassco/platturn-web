@@ -1,11 +1,11 @@
 import axios from "axios";
 
-const API_URL = process.env.VUE_APP_API_BASE_URL + "users/";
+const API_URL = process.env.VUE_APP_API_BASE_URL;
 
 class AuthService {
   login(user) {
     return axios
-      .post(API_URL + "login", {
+      .post(API_URL + "users/login", {
         email: user.email,
         password: user.password
       })
@@ -23,10 +23,18 @@ class AuthService {
   }
 
   register(user) {
-    return axios.post(API_URL + "signup", {
+    return axios.post(API_URL + "users", {
+      fullName: user.fullName,
+      document: user.document,
       email: user.email,
-      password: user.password
+      password: user.password,
+      address: user.address,
+      phone: user.phone
     });
+  }
+
+  sendConfimationEmail(user) {
+    return axios.post(API_URL + `users/send-confimation-email/${user.authUid}`);
   }
 }
 

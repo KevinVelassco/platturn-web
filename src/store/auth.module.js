@@ -37,6 +37,18 @@ export const auth = {
           return Promise.reject(error);
         }
       );
+    },
+    sendConfirmationEmail({ commit }, user) {
+      return AuthService.sendConfimationEmail(user).then(
+        () => {
+          commit("sendConfirmationEmailSuccess");
+          return Promise.resolve();
+        },
+        error => {
+          commit("sendConfirmationEmailFailure");
+          return Promise.reject(error);
+        }
+      );
     }
   },
   mutations: {
@@ -56,6 +68,12 @@ export const auth = {
       state.status.loggedIn = false;
     },
     registerFailure(state) {
+      state.status.loggedIn = false;
+    },
+    sendConfirmationEmailSuccess(state) {
+      state.status.loggedIn = false;
+    },
+    sendConfirmationEmailFailure(state) {
       state.status.loggedIn = false;
     }
   }
