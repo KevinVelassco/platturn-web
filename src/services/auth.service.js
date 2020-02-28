@@ -36,6 +36,20 @@ class AuthService {
   sendConfimationEmail(user) {
     return axios.post(API_URL + `users/send-confimation-email/${user.authUid}`);
   }
+
+  sendForgotPasswordEmail(user) {
+    return axios.post(API_URL + `users/send-forgot-password-email`, {
+      email: user.email
+    });
+  }
+
+  resetPassword(user) {
+    return axios.post(API_URL + `users/change-password-from-code`, {
+      code: user.resetPasswordCode,
+      password: user.password,
+      repeatedPassword: user.repeatedPassword
+    });
+  }
 }
 
 export default new AuthService();
