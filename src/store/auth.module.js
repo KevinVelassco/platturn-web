@@ -40,12 +40,36 @@ export const auth = {
     },
     sendConfirmationEmail({ commit }, user) {
       return AuthService.sendConfimationEmail(user).then(
-        () => {
+        response => {
           commit("sendConfirmationEmailSuccess");
-          return Promise.resolve();
+          return Promise.resolve(response.data);
         },
         error => {
           commit("sendConfirmationEmailFailure");
+          return Promise.reject(error);
+        }
+      );
+    },
+    sendForgotPasswordEmail({ commit }, user) {
+      return AuthService.sendForgotPasswordEmail(user).then(
+        response => {
+          commit("sendForgotPasswordEmailSuccess");
+          return Promise.resolve(response.data);
+        },
+        error => {
+          commit("sendForgotPasswordEmailFailure");
+          return Promise.reject(error);
+        }
+      );
+    },
+    resetPassword({ commit }, user) {
+      return AuthService.resetPassword(user).then(
+        response => {
+          commit("resetPasswordSuccess");
+          return Promise.resolve(response.data);
+        },
+        error => {
+          commit("resetPasswordFailure");
           return Promise.reject(error);
         }
       );
@@ -74,6 +98,18 @@ export const auth = {
       state.status.loggedIn = false;
     },
     sendConfirmationEmailFailure(state) {
+      state.status.loggedIn = false;
+    },
+    sendForgotPasswordEmailSuccess(state) {
+      state.status.loggedIn = false;
+    },
+    sendForgotPasswordEmailFailure(state) {
+      state.status.loggedIn = false;
+    },
+    resetPasswordSuccess(state) {
+      state.status.loggedIn = false;
+    },
+    resetPasswordFailure(state) {
       state.status.loggedIn = false;
     }
   }
