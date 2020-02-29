@@ -5,31 +5,29 @@
         <validation-observer v-slot="{ handleSubmit }">
           <form name="form" @submit.prevent="handleSubmit(onSubmit)">
             <div class="form-group">
-              <label for="password">Clave</label>
-              <validation-provider rules="required" v-slot="{ errors }">
+              <label for="email">Email</label>
+              <validation-provider rules="required|email" v-slot="{ errors }">
                 <input
-                  v-model="user.password"
-                  minlength="5"
-                  maxlength="100"
-                  type="password"
+                  v-model="user.email"
+                  type="text"
                   class="form-control"
-                  name="password"
-                  id="password"
+                  name="email"
+                  id="email"
+                  placeholder="escribe tu email"
                 />
                 <span class="validation">{{ errors[0] }}</span>
               </validation-provider>
             </div>
             <div class="form-group">
-              <label for="repeatedPassword">Confirmar clave</label>
-              <validation-provider rules="required" v-slot="{ errors }">
+              <label for="repeatedEmail">Confirmar email</label>
+              <validation-provider rules="required|email" v-slot="{ errors }">
                 <input
-                  v-model="user.repeatedPassword"
-                  minlength="5"
-                  maxlength="100"
-                  type="password"
+                  v-model="user.repeatedEmail"
+                  type="text"
                   class="form-control"
-                  name="repeatedPassword"
-                  id="repeatedPassword"
+                  name="repeatedEmail"
+                  id="repeatedEmail"
+                  placeholder="confirma tu email"
                 />
                 <span class="validation">{{ errors[0] }}</span>
               </validation-provider>
@@ -43,7 +41,7 @@
                   v-show="loading"
                   class="spinner-border spinner-border-sm"
                 ></span>
-                <span>Cambiar</span>
+                <span>Cambiar email</span>
               </button>
             </div>
           </form>
@@ -61,10 +59,11 @@
 </template>
 
 <script>
-import User from "../models/user";
+import User from "../../models/user";
+import userService from "../../services/user.service";
 import { ValidationProvider, ValidationObserver, extend } from "vee-validate";
 import { required, email } from "vee-validate/dist/rules";
-import { getFromObjectPathParsed } from "../utils/functions";
+import { getFromObjectPathParsed } from "../../utils/functions";
 
 // No message specified.
 extend("email", {
@@ -79,13 +78,13 @@ extend("required", {
 });
 
 export default {
-  name: "ResetPassword",
+  name: "ChangeEmail",
   data() {
     return {
       user: new User({}),
       loading: false,
-      successful: false,
       submitted: false,
+      successful: false,
       message: ""
     };
   },
@@ -96,65 +95,51 @@ export default {
   computed: {
     loggedIn() {
       return this.$store.state.auth.status.loggedIn;
-    },
-    code() {
-      return this.$route.query.code;
     }
   },
   created() {
-    if (this.loggedIn) {
-      this.$router.push("/profile");
+    if (!this.loggedIn) {
+      this.$router.push("/login");
     }
-    if (!this.code) {
-      this.$router.push("/home");
-    }
-    console.log("this.hasCode", this.code);
   },
   methods: {
     onSubmit() {
-      this.loading = true;
-
-      const {
-        user: { password, repeatedPassword }
-      } = this;
-
-      if (password !== repeatedPassword) {
-        this.loading = false;
+      if (this.user.email !== this.user.repeatedEmail) {
         this.successful = false;
-        this.message = "las claves no coinciden.";
+        this.message = "los emails no coincided.";
         return;
       }
 
-      if (this.user.password && this.user.repeatedPassword) {
-        this.user.resetPasswordCode = this.code;
+      this.loading = true;
+      this.submitted = true;
 
-        console.log("object", this.user);
+      userService.changeEmailAddress(this.user).then(
+        data => {
+          this.loading = false;
+          this.successful = true;
+          this.message = data.message;
 
-        this.$store.dispatch("auth/resetPassword", this.user).then(
-          data => {
-            this.loading = false;
-            this.successful = true;
-            this.message = data.message;
-            this.submitted = true;
-          },
-          error => {
-            this.loading = false;
-            this.successful = false;
-            this.submitted = true;
+          this.$store.dispatch("auth/logout");
 
-            this.message = getFromObjectPathParsed(
-              error,
-              "response.data.message"
-            );
+          setTimeout(() => {
+            this.$router.push("/login");
+          }, 5000);
+        },
+        error => {
+          this.loading = false;
+          this.successful = false;
+          this.message = getFromObjectPathParsed(
+            error,
+            "response.data.message"
+          );
 
-            this.message =
-              this.message ||
-              (error.response && error.response.data) ||
-              error.message ||
-              error.toString();
-          }
-        );
-      }
+          this.message =
+            this.message ||
+            (error.response && error.response.data) ||
+            error.message ||
+            error.toString();
+        }
+      );
     }
   }
 };

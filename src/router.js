@@ -15,27 +15,32 @@ export const router = new Router({
   routes: [
     {
       path: "/",
-      name: "home",
+      name: "landing",
       component: Landing
     },
     {
       path: "/home",
+      name: "home",
       component: Home
     },
     {
       path: "/login",
+      name: "login",
       component: Login
     },
     {
       path: "/forgot-password",
+      name: "forgotPassword",
       component: ForgotPassword
     },
     {
       path: "/reset-password",
+      name: "resetPassword",
       component: ResetPassword
     },
     {
       path: "/register",
+      name: "register",
       component: Register
     },
     {
@@ -43,6 +48,12 @@ export const router = new Router({
       name: "profile",
       // lazy-loaded
       component: () => import("./views/Profile.vue")
+    },
+    {
+      path: "/change-email",
+      name: "changeEmail",
+      // lazy-loaded
+      component: () => import("./views/user/ChangeEmail.vue")
     },
     {
       path: "/admin",

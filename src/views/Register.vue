@@ -1,125 +1,127 @@
 <template>
-  <div class="col-md-12">
-    <div class="card card-container">
-      <img
-        id="profile-img"
-        src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-        class="profile-img-card"
-      />
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card card-container">
+        <img
+          id="profile-img"
+          src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
+          class="profile-img-card"
+        />
 
-      <validation-observer v-slot="{ handleSubmit }">
-        <form name="form" @submit.prevent="handleSubmit(onSubmit)">
-          <div v-if="!successful">
-            <div class="form-group">
-              <label for="fullName">Nombre completo</label>
-              <validation-provider rules="required" v-slot="{ errors }">
-                <input
-                  v-model="user.fullName"
-                  minlength="10"
-                  maxlength="100"
-                  type="text"
-                  class="form-control"
-                  name="fullName"
-                  id="fullName"
-                />
-                <span class="validation">{{ errors[0] }}</span>
-              </validation-provider>
+        <validation-observer v-slot="{ handleSubmit }">
+          <form name="form" @submit.prevent="handleSubmit(onSubmit)">
+            <div v-if="!successful">
+              <div class="form-group">
+                <label for="fullName">Nombre completo</label>
+                <validation-provider rules="required" v-slot="{ errors }">
+                  <input
+                    v-model="user.fullName"
+                    minlength="10"
+                    maxlength="100"
+                    type="text"
+                    class="form-control"
+                    name="fullName"
+                    id="fullName"
+                  />
+                  <span class="validation">{{ errors[0] }}</span>
+                </validation-provider>
+              </div>
+              <div class="form-group">
+                <label for="document">Documento</label>
+                <validation-provider rules="required" v-slot="{ errors }">
+                  <input
+                    v-model="user.document"
+                    type="text"
+                    class="form-control"
+                    name="document"
+                    id="document"
+                  />
+                  <span class="validation">{{ errors[0] }}</span>
+                </validation-provider>
+              </div>
+              <div class="form-group">
+                <label for="address">Dirección</label>
+                <validation-provider rules="required" v-slot="{ errors }">
+                  <input
+                    v-model="user.address"
+                    type="text"
+                    class="form-control"
+                    name="address"
+                    id="address"
+                  />
+                  <span class="validation">{{ errors[0] }}</span>
+                </validation-provider>
+              </div>
+              <div class="form-group">
+                <label for="phone">Telefono</label>
+                <validation-provider rules="required" v-slot="{ errors }">
+                  <input
+                    v-model="user.phone"
+                    type="number"
+                    class="form-control"
+                    name="phone"
+                    id="phone"
+                  />
+                  <span class="validation">{{ errors[0] }}</span>
+                </validation-provider>
+              </div>
+              <div class="form-group">
+                <label for="email">Email</label>
+                <validation-provider rules="required|email" v-slot="{ errors }">
+                  <input
+                    v-model="user.email"
+                    type="email"
+                    class="form-control"
+                    name="email"
+                    id="email"
+                  />
+                  <span class="validation">{{ errors[0] }}</span>
+                </validation-provider>
+              </div>
+              <div class="form-group">
+                <label for="password">Clave</label>
+                <validation-provider rules="required" v-slot="{ errors }">
+                  <input
+                    v-model="user.password"
+                    minlength="5"
+                    maxlength="100"
+                    type="password"
+                    class="form-control"
+                    name="password"
+                    id="password"
+                  />
+                  <span class="validation">{{ errors[0] }}</span>
+                </validation-provider>
+              </div>
+              <div class="form-group">
+                <label for="repeatedPassword">Confirmar clave</label>
+                <validation-provider rules="required" v-slot="{ errors }">
+                  <input
+                    v-model="user.repeatedPassword"
+                    minlength="5"
+                    maxlength="100"
+                    type="password"
+                    class="form-control"
+                    name="repeatedPassword"
+                    id="repeatedPassword"
+                  />
+                  <span class="validation">{{ errors[0] }}</span>
+                </validation-provider>
+              </div>
+              <div class="form-group">
+                <button class="btn btn-primary btn-block">Registrarse</button>
+              </div>
             </div>
-            <div class="form-group">
-              <label for="document">Documento</label>
-              <validation-provider rules="required" v-slot="{ errors }">
-                <input
-                  v-model="user.document"
-                  type="text"
-                  class="form-control"
-                  name="document"
-                  id="document"
-                />
-                <span class="validation">{{ errors[0] }}</span>
-              </validation-provider>
-            </div>
-            <div class="form-group">
-              <label for="address">Dirección</label>
-              <validation-provider rules="required" v-slot="{ errors }">
-                <input
-                  v-model="user.address"
-                  type="text"
-                  class="form-control"
-                  name="address"
-                  id="address"
-                />
-                <span class="validation">{{ errors[0] }}</span>
-              </validation-provider>
-            </div>
-            <div class="form-group">
-              <label for="phone">Telefono</label>
-              <validation-provider rules="required" v-slot="{ errors }">
-                <input
-                  v-model="user.phone"
-                  type="number"
-                  class="form-control"
-                  name="phone"
-                  id="phone"
-                />
-                <span class="validation">{{ errors[0] }}</span>
-              </validation-provider>
-            </div>
-            <div class="form-group">
-              <label for="email">Email</label>
-              <validation-provider rules="required|email" v-slot="{ errors }">
-                <input
-                  v-model="user.email"
-                  type="email"
-                  class="form-control"
-                  name="email"
-                  id="email"
-                />
-                <span class="validation">{{ errors[0] }}</span>
-              </validation-provider>
-            </div>
-            <div class="form-group">
-              <label for="password">Clave</label>
-              <validation-provider rules="required" v-slot="{ errors }">
-                <input
-                  v-model="user.password"
-                  minlength="5"
-                  maxlength="100"
-                  type="password"
-                  class="form-control"
-                  name="password"
-                  id="password"
-                />
-                <span class="validation">{{ errors[0] }}</span>
-              </validation-provider>
-            </div>
-            <div class="form-group">
-              <label for="repeatedPassword">Confirmar clave</label>
-              <validation-provider rules="required" v-slot="{ errors }">
-                <input
-                  v-model="user.repeatedPassword"
-                  minlength="5"
-                  maxlength="100"
-                  type="password"
-                  class="form-control"
-                  name="repeatedPassword"
-                  id="repeatedPassword"
-                />
-                <span class="validation">{{ errors[0] }}</span>
-              </validation-provider>
-            </div>
-            <div class="form-group">
-              <button class="btn btn-primary btn-block">Registrarse</button>
-            </div>
-          </div>
-        </form>
-      </validation-observer>
+          </form>
+        </validation-observer>
 
-      <div
-        v-if="message"
-        class="alert"
-        :class="successful ? 'alert-success' : 'alert-danger'"
-      >
-        {{ message }}
+        <div
+          v-if="message"
+          class="alert"
+          :class="successful ? 'alert-success' : 'alert-danger'"
+        >
+          {{ message }}
+        </div>
       </div>
     </div>
   </div>
