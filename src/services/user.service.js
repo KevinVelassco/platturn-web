@@ -1,7 +1,7 @@
 import axios from "axios";
 import authHeader from "./auth.header";
 
-const API_URL = "http://localhost:8080/api/test/";
+const API_URL = process.env.VUE_APP_API_BASE_URL;
 
 class UserService {
   getPublicContent() {
@@ -24,6 +24,21 @@ class UserService {
 
   getAdminBoard() {
     return axios.get(API_URL + "admin", { headers: authHeader() });
+  }
+
+  async changeEmailAddress(user) {
+    const response = await axios.post(
+      API_URL + "users/change-email-address",
+      {
+        email: user.email,
+        repeatedEmail: user.repeatedEmail
+      },
+      { headers: authHeader() }
+    );
+
+    const { data } = response;
+
+    return data;
   }
 }
 
