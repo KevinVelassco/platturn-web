@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <div class="col-6 offset-3">
+    <div class="col-md-6 offset-md-3 col-lg-6 offset-lg-3 col">
       <div class="card">
         <div class="card-body">
           <div class="row">
