@@ -8,7 +8,8 @@ export default class User {
     address,
     phone,
     repeatedPassword,
-    resetPasswordCode
+    resetPasswordCode,
+    repeatedEmail
   }) {
     this.authUid = authUid;
     this.fullName = fullName;
@@ -19,5 +20,6 @@ export default class User {
     this.address = address;
     this.phone = phone;
     this.resetPasswordCode = resetPasswordCode;
+    this.repeatedEmail = repeatedEmail;
   }
 }
