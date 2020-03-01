@@ -52,7 +52,10 @@
             </div>
             <div class="col-12 col-lg-4">
               <small>¿Clave insegura?</small>
-              <button class="btn btn-outline-primary btn-block">
+              <button
+                class="btn btn-outline-primary btn-block"
+                v-on:click="onChangePassword"
+              >
                 <span class="fa fa-user"></span> Cambiar clave
               </button>
             </div>
@@ -88,6 +91,9 @@ export default {
   methods: {
     onChageEmail() {
       this.$router.push("/change-email");
+    },
+    onChangePassword() {
+      this.$router.push("/change-password");
     }
   }
 };

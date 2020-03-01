@@ -99,8 +99,6 @@ export default {
             this.message = data.message;
           },
           error => {
-            console.log("error", Object.keys(error));
-            console.log("error", error.response.data.message);
             this.loading = false;
             this.message = getFromObjectPathParsed(
               error,

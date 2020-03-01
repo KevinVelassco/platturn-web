@@ -56,6 +56,12 @@ export const router = new Router({
       component: () => import("./views/user/ChangeEmail.vue")
     },
     {
+      path: "/change-password",
+      name: "changePassword",
+      // lazy-loaded
+      component: () => import("./views/user/ChangePassword.vue")
+    },
+    {
       path: "/admin",
       name: "admin",
       // lazy-loaded
@@ -77,9 +83,9 @@ export const router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
-  console.log("---------");
-  console.log("to", to);
-  console.log("---------");
+  // console.log("---------");
+  // console.log("to", to);
+  // console.log("---------");
 
   const publicPages = [
     "/",
