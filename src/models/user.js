@@ -9,7 +9,8 @@ export default class User {
     phone,
     repeatedPassword,
     resetPasswordCode,
-    repeatedEmail
+    repeatedEmail,
+    currentPassword
   }) {
     this.authUid = authUid;
     this.fullName = fullName;
@@ -21,5 +22,6 @@ export default class User {
     this.phone = phone;
     this.resetPasswordCode = resetPasswordCode;
     this.repeatedEmail = repeatedEmail;
+    this.currentPassword = currentPassword;
   }
 }
