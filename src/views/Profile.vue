@@ -61,7 +61,11 @@
             </div>
             <div class="col-12 col-lg-4">
               <small>¿Datos erroneos?</small>
-              <button type="button" class="btn btn-outline-success btn-block">
+              <button
+                type="button"
+                class="btn btn-outline-success btn-block"
+                v-on:click="onUpdateUserInfo"
+              >
                 <span class="fa fa-gear"></span> Actualizar perfil
               </button>
             </div>
@@ -94,6 +98,9 @@ export default {
     },
     onChangePassword() {
       this.$router.push("/change-password");
+    },
+    onUpdateUserInfo() {
+      this.$router.push("/update-user-info");
     }
   }
 };
