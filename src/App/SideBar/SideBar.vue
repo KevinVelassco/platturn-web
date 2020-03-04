@@ -8,10 +8,12 @@
     <a href="#" class="closebtn" v-on:click="closeSideBer">
       ×
     </a>
-    <a href="#">About</a>
-    <a href="#">Services</a>
-    <a href="#">Clients</a>
-    <a href="#">Contact</a>
+    <a data-toggle="collapse" href="#collapseExample">About</a>
+    <div class="collapse" id="collapseExample">
+      <a href="#">Services</a>
+      <a href="#">Clients</a>
+      <a href="#">Contact</a>
+    </div>
   </div>
 </template>
 <script>
@@ -67,12 +69,16 @@ export default {
 }
 
 .sidebar a {
-  padding: 8px 8px 8px 32px;
+  padding: 8px 8px 8px 10px;
   text-decoration: none;
   font-size: 1rem;
   color: #818181;
   display: block;
   transition: 0.3s;
+}
+
+.sidebar div a {
+  padding: 8px 8px 8px 20px;
 }
 
 .sidebar a:hover {

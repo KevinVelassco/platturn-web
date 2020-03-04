@@ -125,9 +125,7 @@ export default {
       this.$router.push("/login");
     },
     showSideBar() {
-      console.log("hi..");
       this.bus.$emit("showsidebar");
-      // this.$refs.sideBar.showSideBar();
     }
   },
   components: {
