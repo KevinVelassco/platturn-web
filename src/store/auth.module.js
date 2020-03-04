@@ -73,6 +73,11 @@ export const auth = {
           return Promise.reject(error);
         }
       );
+    },
+    refreshUser({ commit }, user) {
+      const refreshedUser = AuthService.refreshUser(user);
+      commit("refreshUserSuccess", refreshedUser);
+      return refreshedUser;
     }
   },
   mutations: {
@@ -111,6 +116,11 @@ export const auth = {
     },
     resetPasswordFailure(state) {
       state.status.loggedIn = false;
+    },
+    // eslint-disable-next-line no-unused-vars
+    refreshUserSuccess(state, user) {
+      state.status.loggedIn = true;
+      state.user = user;
     }
   }
 };

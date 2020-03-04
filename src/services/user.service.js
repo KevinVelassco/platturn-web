@@ -56,6 +56,18 @@ class UserService {
 
     return data;
   }
+
+  async updateUserData(user) {
+    const response = await axios.patch(
+      API_URL + "users/update-user-data",
+      user,
+      { headers: authHeader() }
+    );
+
+    const { data } = response;
+
+    return data;
+  }
 }
 
 export default new UserService();

@@ -62,6 +62,11 @@ export const router = new Router({
       component: () => import("./views/user/ChangePassword.vue")
     },
     {
+      path: "/update-user-info",
+      name: "updateUserInfo",
+      component: () => import("./views/user/UpdateUserInfo.vue")
+    },
+    {
       path: "/admin",
       name: "admin",
       // lazy-loaded
