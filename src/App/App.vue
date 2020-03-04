@@ -5,7 +5,7 @@
       <div class="container">
         <a href="#" @click.prevent="showSideBar">
           <img
-            src="./assets/logo.png"
+            src="../assets/logo.png"
             height="30px"
             width="30px"
             alt="Platturn"
@@ -77,19 +77,11 @@
       </div>
     </nav>
 
-    <div
-      v-if="currentUser && renderSideBar"
-      id="mySidebar"
-      class="sidebar bg-dark"
-    >
-      <a href="#" class="closebtn" v-on:click="closeSideBer">
-        ×
-      </a>
-      <a href="#">About</a>
-      <a href="#">Services</a>
-      <a href="#">Clients</a>
-      <a href="#">Contact</a>
-    </div>
+    <SideBar
+      v-bind:currentUser="currentUser"
+      v-bind:bus="bus"
+      ref="sideBar"
+    ></SideBar>
 
     <div class="container">
       <router-view />
@@ -98,11 +90,14 @@
 </template>
 
 <script>
+import Vue from "vue";
+import SideBar from "./SideBar/SideBar.vue";
+
 export default {
   name: "App",
   data() {
     return {
-      renderSideBar: false
+      bus: new Vue()
     };
   },
   computed: {
@@ -130,63 +125,13 @@ export default {
       this.$router.push("/login");
     },
     showSideBar() {
-      if (!this.currentUser) {
-        const {
-          currentRoute: { path }
-        } = this.$router;
-
-        if (path !== "/") this.$router.push("/");
-        return;
-      }
-      this.renderSideBar = true;
-    },
-    closeSideBer() {
-      this.renderSideBar = false;
+      console.log("hi..");
+      this.bus.$emit("showsidebar");
+      // this.$refs.sideBar.showSideBar();
     }
+  },
+  components: {
+    SideBar
   }
 };
 </script>
-<style scoped>
-.sidebar {
-  height: 100%;
-  width: 170px;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  overflow-x: hidden;
-  transition: 0.5s;
-  padding-top: 60px;
-}
-
-.sidebar a {
-  padding: 8px 8px 8px 32px;
-  text-decoration: none;
-  font-size: 1rem;
-  color: #818181;
-  display: block;
-  transition: 0.3s;
-}
-
-.sidebar a:hover {
-  color: #f1f1f1;
-}
-
-.sidebar .closebtn {
-  position: absolute;
-  top: 0;
-  right: 25px;
-  font-size: 36px;
-  margin-left: 50px;
-}
-
-/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
-@media screen and (max-height: 450px) {
-  .sidebar {
-    padding-top: 15px;
-  }
-  .sidebar a {
-    font-size: 1rem;
-  }
-}
-</style>
