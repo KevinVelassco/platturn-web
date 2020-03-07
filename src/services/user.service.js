@@ -68,6 +68,16 @@ class UserService {
 
     return data;
   }
+
+  async getUserScreens() {
+    const response = await axios.get(API_URL + "users/get-user-screens", {
+      headers: authHeader()
+    });
+
+    const { data } = response;
+
+    return data;
+  }
 }
 
 export default new UserService();

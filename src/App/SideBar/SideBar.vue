@@ -8,15 +8,20 @@
     <a href="#" class="closebtn" v-on:click="closeSideBer">
       ×
     </a>
-    <a data-toggle="collapse" href="#collapseExample">About</a>
-    <div class="collapse" id="collapseExample">
-      <a href="#">Services</a>
-      <a href="#">Clients</a>
-      <a href="#">Contact</a>
+    <a data-toggle="collapse" href="#collapseExample">Menu</a>
+    <div
+      class="collapse"
+      id="collapseExample"
+      v-for="screen in screens"
+      :key="screen.name"
+    >
+      <a href="#">{{ screen.name }}</a>
     </div>
   </div>
 </template>
 <script>
+import userService from "../../services/user.service";
+
 export default {
   props: {
     currentUser: {
@@ -30,8 +35,15 @@ export default {
   },
   data() {
     return {
-      renderSideBar: false
+      renderSideBar: false,
+      screens: []
     };
+  },
+  watch: {
+    currentUser: function(val) {
+      console.log("val", val);
+      if (val) this.loadScreens();
+    }
   },
   methods: {
     showSideBar() {
@@ -48,10 +60,22 @@ export default {
     },
     closeSideBer() {
       this.renderSideBar = false;
+    },
+    loadScreens() {
+      userService.getUserScreens().then(
+        data => {
+          this.screens = data;
+          console.log("this.screens", data);
+        },
+        error => {
+          console.error(error);
+        }
+      );
     }
   },
   mounted() {
     this.bus.$on("showsidebar", this.showSideBar);
+    if (this.currentUser) this.loadScreens();
   }
 };
 </script>
