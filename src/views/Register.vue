@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-4 offset-md-4">
       <div class="card card-container">
         <img
           id="profile-img"
@@ -235,7 +235,6 @@ span .validation {
 }
 
 .card-container.card {
-  max-width: 350px !important;
   padding: 40px 40px;
 }
 

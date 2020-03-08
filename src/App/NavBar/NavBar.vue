@@ -55,7 +55,7 @@
       >
         <ul class="navbar-nav ml-auto">
           <li class="nav-item active">
-            <router-link to="/home" class="nav-link">
+            <router-link to="/dashboard" class="nav-link">
               <font-awesome-icon icon="chalkboard-teacher" size="lg" />
               <span class="sr-only">(current)</span>
             </router-link>

@@ -1,38 +1,56 @@
 <template>
-  <div class="row">
-    <div
-      v-if="message"
-      class="alert"
-      :class="successful ? 'alert-success' : 'alert-danger'"
-    >
-      {{ message }}
+  <div>
+    <div class="row actions">
+      <div class="col-md-4 col-lg-3">
+        <button
+          type="button"
+          class="btn btn-success"
+          data-toggle="button"
+          aria-pressed="false"
+          v-on:click="initCreation"
+        >
+          Nueva
+        </button>
+      </div>
     </div>
-    <div
-      class="col-md-4 col-lg-3"
-      v-for="company in companies"
-      :key="company.id"
-    >
-      <div class="card">
-        <img
-          class="card-img-top"
-          src="https://storage.googleapis.com/platturn-dev-bucket/public/companies/default-logo.png"
-          alt="Card image cap"
-        />
-        <div class="card-body">
-          <h4 class="card-title">{{ company.name }}</h4>
-          <p class="card-text">
-            <span class="badge badge-secondary">Código:</span>
-            {{ company.code }}
-            <br />
-            <span class="badge badge-secondary">Documento:</span>
-            {{ company.document }}
-            <br />
-            <span class="badge badge-secondary">Email:</span>
-            {{ company.email }}
-          </p>
-          <a href="#" class="btn btn-primary">
-            <font-awesome-icon icon="edit" />
-          </a>
+    <div class="row">
+      <div
+        v-if="message"
+        class="alert"
+        :class="successful ? 'alert-success' : 'alert-danger'"
+      >
+        {{ message }}
+      </div>
+      <div class="col-md-4 col-lg-3" v-if="creating">
+        <Create></Create>
+      </div>
+      <div
+        class="col-md-4 col-lg-3"
+        v-for="company in companies"
+        :key="company.id"
+      >
+        <div class="card">
+          <img
+            class="card-img-top"
+            src="https://storage.googleapis.com/platturn-dev-bucket/public/companies/default-logo.png"
+            alt="Card image cap"
+          />
+          <div class="card-body">
+            <h4 class="card-title">{{ company.name }}</h4>
+            <p class="card-text">
+              <span class="badge badge-secondary">Código:</span>
+              {{ company.code }}
+              <br />
+              <span class="badge badge-secondary">Documento:</span>
+              {{ company.document }}
+              <br />
+              <span class="badge badge-secondary">Email:</span>
+              {{ company.email }}
+            </p>
+            <a href="#" class="btn btn-primary">
+              <font-awesome-icon icon="edit" />
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -40,6 +58,7 @@
 </template>
 <script>
 import companyService from "../../services/company.service";
+import Create from "./Create";
 import { getFromObjectPathParsed } from "../../utils/functions";
 export default {
   name: "HandleCompanies",
@@ -47,7 +66,8 @@ export default {
     return {
       companies: [],
       successful: false,
-      message: ""
+      message: "",
+      creating: false
     };
   },
   computed: {
@@ -85,12 +105,23 @@ export default {
             error.toString();
         }
       );
+    },
+    initCreation() {
+      this.creating = !this.creating;
+      console.log("creating", this.creating);
     }
+  },
+  components: {
+    Create
   }
 };
 </script>
 <style scoped>
 .card {
-  margin-top: 10px;
+  margin-top: 1rem;
+}
+
+.actions {
+  margin-top: 1rem;
 }
 </style>

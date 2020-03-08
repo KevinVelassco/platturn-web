@@ -2,7 +2,6 @@ import Vue from "vue";
 import Router from "vue-router";
 
 import Landing from "./views/Landing.vue";
-import Home from "./views/Home.vue";
 import Login from "./views/Login.vue";
 import Register from "./views/Register.vue";
 import ForgotPassword from "./views/ForgotPassword.vue";
@@ -18,11 +17,6 @@ export const router = new Router({
       path: "/",
       name: "landing",
       component: Landing
-    },
-    {
-      path: "/home",
-      name: "home",
-      component: Home
     },
     {
       path: "/login",
@@ -43,6 +37,11 @@ export const router = new Router({
       path: "/register",
       name: "register",
       component: Register
+    },
+    {
+      path: "/dashboard",
+      name: "dashboard",
+      component: () => import("./views/Home.vue")
     },
     {
       path: "/profile",
@@ -103,8 +102,7 @@ router.beforeEach((to, from, next) => {
     "/login",
     "/forgot-password",
     "/reset-password",
-    "/register",
-    "/home"
+    "/register"
   ];
   const authRequired = !publicPages.includes(to.path);
   const loggedIn = localStorage.getItem("user");

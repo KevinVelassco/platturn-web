@@ -13,6 +13,24 @@ class CompanyService {
 
     return data;
   }
+
+  async createCompany(company) {
+    console.log("company", company);
+    const response = await axios.post(
+      API_URL + "companies",
+      {
+        name: company.name,
+        code: company.code,
+        document: company.document,
+        email: company.email
+      },
+      { headers: authHeader() }
+    );
+
+    const { data } = response;
+
+    return { ...data, message: "company created" };
+  }
 }
 
 export default new CompanyService();
