@@ -1,23 +1,31 @@
 <template>
-  <div
-    v-if="currentUser && renderSideBar"
-    id="mySidebar"
-    class="sidebar bg-dark"
-    v-on:show-side-bar="showSideBar"
-  >
-    <a href="#" class="closebtn" v-on:click="closeSideBer">
-      ×
-    </a>
-    <a data-toggle="collapse" href="#collapseExample">Menu</a>
+  <transition name="fade">
     <div
-      class="collapse"
-      id="collapseExample"
-      v-for="screen in screens"
-      :key="screen.name"
+      v-if="currentUser && renderSideBar"
+      id="mySidebar"
+      class="sidebar bg-dark"
+      v-on:show-side-bar="showSideBar"
     >
-      <a href="#">{{ screen.name }}</a>
+      <a href="#" class="closebtn" v-on:click="closeSideBer">
+        ×
+      </a>
+      <div v-for="functionality in functionalities" :key="functionality.id">
+        <a
+          data-toggle="collapse"
+          :href="'#collapseFunctionality' + functionality.id"
+          >{{ functionality.name }}</a
+        >
+        <div
+          class="collapse"
+          :id="'collapseFunctionality' + functionality.id"
+          v-for="screen in functionality.screens"
+          :key="screen.name"
+        >
+          <a href="#">{{ screen.name }}</a>
+        </div>
+      </div>
     </div>
-  </div>
+  </transition>
 </template>
 <script>
 import userService from "../../services/user.service";
@@ -36,13 +44,13 @@ export default {
   data() {
     return {
       renderSideBar: false,
-      screens: []
+      functionalities: []
     };
   },
   watch: {
     currentUser: function(val) {
       console.log("val", val);
-      if (val) this.loadScreens();
+      if (val) this.loadMenu();
     }
   },
   methods: {
@@ -61,11 +69,10 @@ export default {
     closeSideBer() {
       this.renderSideBar = false;
     },
-    loadScreens() {
+    loadMenu() {
       userService.getUserScreens().then(
         data => {
-          this.screens = data;
-          console.log("this.screens", data);
+          this.functionalities = data;
         },
         error => {
           console.error(error);
@@ -75,20 +82,19 @@ export default {
   },
   mounted() {
     this.bus.$on("showsidebar", this.showSideBar);
-    if (this.currentUser) this.loadScreens();
+    if (this.currentUser) this.loadMenu();
   }
 };
 </script>
 <style scoped>
 .sidebar {
   height: 100%;
-  width: 170px;
+  width: 200px;
   position: fixed;
   z-index: 1;
   top: 0;
   left: 0;
   overflow-x: hidden;
-  transition: 0.5s;
   padding-top: 60px;
 }
 
@@ -101,7 +107,7 @@ export default {
   transition: 0.3s;
 }
 
-.sidebar div a {
+.sidebar div div a {
   padding: 8px 8px 8px 20px;
 }
 
@@ -115,6 +121,15 @@ export default {
   right: 25px;
   font-size: 36px;
   margin-left: 50px;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
 }
 
 /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
