@@ -21,7 +21,11 @@
           v-for="screen in functionality.screens"
           :key="screen.name"
         >
-          <a href="#">{{ screen.name }}</a>
+          <router-link
+            :to="screen.path || '/'"
+            v-on:click.native="closeSideBer"
+            >{{ screen.name }}</router-link
+          >
         </div>
       </div>
     </div>
@@ -56,6 +60,7 @@ export default {
   },
   methods: {
     showSideBar() {
+      console.log("showSideBar");
       if (!this.currentUser) {
         const {
           currentRoute: { path }

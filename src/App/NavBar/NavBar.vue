@@ -56,19 +56,18 @@
         <ul class="navbar-nav ml-auto">
           <li class="nav-item active">
             <router-link to="/home" class="nav-link">
-              Dashboard
+              <font-awesome-icon icon="chalkboard-teacher" size="lg" />
               <span class="sr-only">(current)</span>
             </router-link>
           </li>
           <li class="nav-item">
             <router-link to="/profile" class="nav-link">
-              <font-awesome-icon icon="user" />
-              {{ currentUser.fullName }}
+              <font-awesome-icon icon="user-circle" size="lg" />
             </router-link>
           </li>
           <li class="nav-item">
             <a class="nav-link" href @click.prevent="logOut">
-              <font-awesome-icon icon="sign-out-alt" /> Salir
+              <font-awesome-icon icon="sign-out-alt" size="lg" />
             </a>
           </li>
         </ul>
@@ -111,6 +110,7 @@ export default {
       this.$router.push("/login");
     },
     showSideBar() {
+      console.log("Hi!", this.bus);
       this.bus.$emit("showsidebar");
     }
   }

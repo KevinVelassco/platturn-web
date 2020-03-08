@@ -13,6 +13,7 @@ Vue.use(Router);
 export const router = new Router({
   mode: "history",
   routes: [
+    // general routes
     {
       path: "/",
       name: "landing",
@@ -83,6 +84,11 @@ export const router = new Router({
       name: "user",
       // lazy-loaded
       component: () => import("./views/BoardUser.vue")
+    },
+    {
+      name: "company",
+      path: "/companies",
+      component: () => import("./views/companies/HandleCompanies.vue")
     }
   ]
 });
