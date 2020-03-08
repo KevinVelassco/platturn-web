@@ -31,6 +31,7 @@
 import userService from "../../services/user.service";
 
 export default {
+  name: "SideBar",
   props: {
     currentUser: {
       type: Object,
