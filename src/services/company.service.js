@@ -15,7 +15,6 @@ class CompanyService {
   }
 
   async createCompany(company) {
-    console.log("company", company);
     const response = await axios.post(
       API_URL + "companies",
       {

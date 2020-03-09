@@ -1,8 +1,8 @@
 <template>
   <div class="card card-container">
-    <validation-observer v-slot="{ handleSubmit }">
+    <validation-observer ref="form" v-slot="{ handleSubmit }">
       <form name="form" @submit.prevent="handleSubmit(onSubmit)">
-        <div v-if="!successful">
+        <div>
           <div class="form-group">
             <label for="name">Nombre</label>
             <validation-provider rules="required" v-slot="{ errors }">
@@ -83,11 +83,10 @@
 
 <script>
 import Company from "../../models/company";
-// import companyService from "../../services/company.service";
+import companyService from "../../services/company.service";
 import { ValidationProvider, ValidationObserver, extend } from "vee-validate";
 import { required, email } from "vee-validate/dist/rules";
 import { getFromObjectPathParsed } from "../../utils/functions";
-import companyService from "../../services/company.service";
 
 // No message specified.
 extend("email", {
@@ -134,6 +133,18 @@ export default {
           this.successful = true;
           this.message = data.message;
           this.loading = false;
+
+          this.company.name = "";
+          this.company.code = "";
+          this.company.document = "";
+          this.company.email = "";
+
+          // Wait until the models are updated in the UI
+          this.$nextTick(() => {
+            // console.log(this.$refs.form.$el);
+            this.$refs.form.$el.blur();
+            this.$refs.form.reset();
+          });
         },
         error => {
           this.successful = false;

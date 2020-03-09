@@ -108,7 +108,6 @@ export default {
     },
     initCreation() {
       this.creating = !this.creating;
-      console.log("creating", this.creating);
     }
   },
   components: {
