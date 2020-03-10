@@ -87,7 +87,7 @@ export default {
     }
   },
   mounted() {
-    this.bus.$on("showsidebar", this.showSideBar);
+    this.bus.$on("show-side-bar", this.showSideBar);
     if (this.currentUser) this.loadMenu();
   }
 };

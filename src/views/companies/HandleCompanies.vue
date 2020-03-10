@@ -21,8 +21,12 @@
       >
         {{ message }}
       </div>
-      <div class="col-md-4 col-lg-3" v-if="creating">
-        <Create></Create>
+      <div
+        class="col-md-4 col-lg-3"
+        v-on:enlarge-text="onEnlargeText"
+        v-if="creating"
+      >
+        <Create v-bind:bus="bus"></Create>
       </div>
       <div
         class="col-md-4 col-lg-3"
@@ -57,6 +61,7 @@
   </div>
 </template>
 <script>
+import Vue from "vue";
 import companyService from "../../services/company.service";
 import Create from "./Create";
 import { getFromObjectPathParsed } from "../../utils/functions";
@@ -67,7 +72,8 @@ export default {
       companies: [],
       successful: false,
       message: "",
-      creating: false
+      creating: false,
+      bus: new Vue()
     };
   },
   computed: {
@@ -81,6 +87,7 @@ export default {
     }
 
     this.loadCompanies();
+    this.bus.$on("load-companies", this.loadCompanies);
   },
   methods: {
     loadCompanies() {
@@ -108,6 +115,9 @@ export default {
     },
     initCreation() {
       this.creating = !this.creating;
+    },
+    onEnlargeText() {
+      this.loadCompanies();
     }
   },
   components: {

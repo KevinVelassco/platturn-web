@@ -111,7 +111,7 @@ export default {
     },
     showSideBar() {
       console.log("Hi!", this.bus);
-      this.bus.$emit("showsidebar");
+      this.bus.$emit("show-side-bar");
     }
   }
 };

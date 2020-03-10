@@ -102,6 +102,12 @@ extend("required", {
 
 export default {
   name: "CreateCompany",
+  props: {
+    bus: {
+      type: Object,
+      default: null
+    }
+  },
   data() {
     return {
       company: new Company({}),
@@ -144,6 +150,7 @@ export default {
             // console.log(this.$refs.form.$el);
             this.$refs.form.$el.blur();
             this.$refs.form.reset();
+            this.bus.$emit("load-companies");
           });
         },
         error => {
