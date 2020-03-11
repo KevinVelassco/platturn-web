@@ -7,7 +7,8 @@
           class="btn btn-success"
           data-toggle="button"
           aria-pressed="false"
-          v-on:click="initCreation"
+          v-on:click="initCreating"
+          :disabled="updating || creating"
         >
           Nueva
         </button>
@@ -21,19 +22,21 @@
       >
         {{ message }}
       </div>
-      <div
-        class="col-md-4 col-lg-3"
-        v-on:enlarge-text="onEnlargeText"
-        v-if="creating"
-      >
+      <div class="col-md-4 col-lg-3" v-if="creating">
         <Create v-bind:bus="bus"></Create>
       </div>
+
       <div
         class="col-md-4 col-lg-3"
         v-for="company in companies"
         :key="company.id"
       >
-        <div class="card">
+        <Update
+          v-if="updating"
+          v-bind:company="company"
+          v-bind:bus="bus"
+        ></Update>
+        <div class="card" v-if="!updating">
           <img
             class="card-img-top"
             src="https://storage.googleapis.com/platturn-dev-bucket/public/companies/default-logo.png"
@@ -51,9 +54,13 @@
               <span class="badge badge-secondary">Email:</span>
               {{ company.email }}
             </p>
-            <a href="#" class="btn btn-primary">
+            <button
+              class="btn btn-primary btn-block"
+              :disabled="creating"
+              v-on:click.prevent="initUpdating"
+            >
               <font-awesome-icon icon="edit" />
-            </a>
+            </button>
           </div>
         </div>
       </div>
@@ -64,6 +71,7 @@
 import Vue from "vue";
 import companyService from "../../services/company.service";
 import Create from "./Create";
+import Update from "./Update";
 import { getFromObjectPathParsed } from "../../utils/functions";
 export default {
   name: "HandleCompanies",
@@ -73,6 +81,7 @@ export default {
       successful: false,
       message: "",
       creating: false,
+      updating: false,
       bus: new Vue()
     };
   },
@@ -88,6 +97,8 @@ export default {
 
     this.loadCompanies();
     this.bus.$on("load-companies", this.loadCompanies);
+    this.bus.$on("cancel-updating", this.cancelUpdating);
+    this.bus.$on("cancel-creating", this.cancelCreating);
   },
   methods: {
     loadCompanies() {
@@ -113,15 +124,24 @@ export default {
         }
       );
     },
-    initCreation() {
+    initCreating() {
       this.creating = !this.creating;
+      this.updating = false;
     },
-    onEnlargeText() {
-      this.loadCompanies();
+    cancelCreating() {
+      this.creating = false;
+    },
+    initUpdating() {
+      this.updating = !this.updating;
+      this.creating = false;
+    },
+    cancelUpdating() {
+      this.updating = false;
     }
   },
   components: {
-    Create
+    Create,
+    Update
   }
 };
 </script>

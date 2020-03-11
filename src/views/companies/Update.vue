@@ -7,7 +7,7 @@
             <label for="name">Nombre</label>
             <validation-provider rules="required" v-slot="{ errors }">
               <input
-                v-model="company.name"
+                v-model="companyToEdit.name"
                 minlength="2"
                 maxlength="100"
                 type="text"
@@ -22,7 +22,7 @@
             <label for="code">Código</label>
             <validation-provider rules="required" v-slot="{ errors }">
               <input
-                v-model="company.code"
+                v-model="companyToEdit.code"
                 placeholder="example: 01BH"
                 type="text"
                 class="form-control"
@@ -36,7 +36,7 @@
             <label for="document">Documento</label>
             <validation-provider rules="required" v-slot="{ errors }">
               <input
-                v-model="company.document"
+                v-model="companyToEdit.document"
                 type="text"
                 class="form-control"
                 name="document"
@@ -49,7 +49,7 @@
             <label for="email">Email</label>
             <validation-provider rules="required|email" v-slot="{ errors }">
               <input
-                v-model="company.email"
+                v-model="companyToEdit.email"
                 type="email"
                 class="form-control"
                 name="email"
@@ -59,24 +59,20 @@
             </validation-provider>
           </div>
           <div class="form-group">
-            <button class="btn btn-success btn-block" :disabled="loading">
+            <button class="btn btn-primary btn-block" :disabled="loading">
               <span
                 v-show="loading"
                 class="spinner-border spinner-border-sm"
               ></span>
-              Crear
+              Actualizar
             </button>
           </div>
           <div class="form-group">
             <button
               class="btn btn-secondary btn-block"
               :disabled="loading"
-              v-on:click.prevent="cancelCreating"
+              v-on:click.prevent="cancelUpdating"
             >
-              <span
-                v-show="loading"
-                class="spinner-border spinner-border-sm"
-              ></span>
               Cancelar
             </button>
           </div>
@@ -114,19 +110,23 @@ extend("required", {
 });
 
 export default {
-  name: "CreateCompany",
+  name: "UpdateCompany",
   props: {
     bus: {
       type: Object,
       default: null
+    },
+    company: {
+      type: Object,
+      default: new Company({})
     }
   },
   data() {
     return {
-      company: new Company({}),
       loading: false,
       successful: false,
-      message: ""
+      message: "",
+      companyToEdit: { ...this.company }
     };
   },
   components: {
@@ -147,22 +147,18 @@ export default {
     onSubmit() {
       this.loading = true;
 
-      companyService.createCompany(this.company).then(
+      companyService.updateCompany(this.companyToEdit).then(
         data => {
           this.successful = true;
           this.message = data.message;
           this.loading = false;
-
-          this.company.name = "";
-          this.company.code = "";
-          this.company.document = "";
-          this.company.email = "";
 
           // Wait until the models are updated in the UI
           this.$nextTick(() => {
             // console.log(this.$refs.form.$el);
             this.$refs.form.$el.blur();
             this.$refs.form.reset();
+            this.bus.$emit("cancel-updating");
             this.bus.$emit("load-companies");
           });
         },
@@ -184,8 +180,9 @@ export default {
         }
       );
     },
-    cancelCreating() {
-      this.bus.$emit("cancel-creating");
+    cancelUpdating() {
+      this.companyToEdit = { ...this.company };
+      this.bus.$emit("cancel-updating");
     }
   }
 };

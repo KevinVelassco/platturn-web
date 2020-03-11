@@ -30,6 +30,26 @@ class CompanyService {
 
     return { ...data, message: "company created" };
   }
+
+  async updateCompany(company) {
+    const companyToSend = { ...company };
+
+    delete companyToSend.id;
+    delete companyToSend.created_at;
+    delete companyToSend.updated_at;
+
+    const response = await axios.patch(
+      API_URL + "companies/" + company.id,
+      {
+        ...companyToSend
+      },
+      { headers: authHeader() }
+    );
+
+    const { data } = response;
+
+    return { ...data, message: "company updated" };
+  }
 }
 
 export default new CompanyService();
