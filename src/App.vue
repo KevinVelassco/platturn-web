@@ -1,7 +1,10 @@
 <template>
   <div id="app">
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+    <nav
+      v-if="currentUser"
+      class="navbar navbar-expand-lg navbar-dark bg-dark static-top"
+    >
       <div class="container">
         <router-link to="/" class="navbar-brand">
           <img
@@ -77,9 +80,11 @@
       </div>
     </nav>
 
-    <div class="container">
+    <div v-if="currentUser" class="container">
       <router-view />
     </div>
+
+    <router-view v-if="!currentUser" />
   </div>
 </template>
 
