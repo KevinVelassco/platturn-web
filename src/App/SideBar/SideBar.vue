@@ -138,6 +138,10 @@ export default {
   opacity: 0;
 }
 
+.bg-dark {
+  background-color: #000000 !important;
+}
+
 /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
 @media screen and (max-height: 450px) {
   .sidebar {
