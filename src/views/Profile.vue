@@ -41,7 +41,7 @@
                 </li>
               </ul>
             </div>
-            <div class="col-12 col-lg-4">
+            <div class="col-md-4">
               <small>¿Mal email?</small>
               <button
                 class="btn btn-outline-danger btn-block"
@@ -50,7 +50,7 @@
                 <span class="fa fa-plus-circle"></span> Cambiar email
               </button>
             </div>
-            <div class="col-12 col-lg-4">
+            <div class="col-md-4">
               <small>¿Clave insegura?</small>
               <button
                 class="btn btn-outline-primary btn-block"
@@ -59,7 +59,7 @@
                 <span class="fa fa-user"></span> Cambiar clave
               </button>
             </div>
-            <div class="col-12 col-lg-4">
+            <div class="col-md-4">
               <small>¿Datos erroneos?</small>
               <button
                 type="button"

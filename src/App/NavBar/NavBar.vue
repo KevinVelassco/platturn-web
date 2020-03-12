@@ -6,7 +6,7 @@
         <img
           src="../../assets/logo1.png"
           height="43px"
-          width="85px"
+          width="75px"
           alt="Platturn"
         />
       </a>
@@ -113,7 +113,6 @@ export default {
       this.$router.push("/login");
     },
     showSideBar() {
-      console.log("Hi!", this.bus);
       this.bus.$emit("show-side-bar");
     }
   }

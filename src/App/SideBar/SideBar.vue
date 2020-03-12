@@ -60,7 +60,6 @@ export default {
   },
   methods: {
     showSideBar() {
-      console.log("showSideBar");
       if (!this.currentUser) {
         const {
           currentRoute: { path }

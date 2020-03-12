@@ -58,4 +58,4 @@ export default {
   }
 };
 </script>
-<style src="./Landing.css"></style>
+<style src="./Landing.css" scoped></style>
