@@ -8,9 +8,11 @@
       ref="sideBar"
     ></SideBar>
 
-    <div class="container">
+    <div class="container" v-if="currentUser">
       <router-view />
     </div>
+
+    <router-view v-if="!currentUser" />
   </div>
 </template>
 

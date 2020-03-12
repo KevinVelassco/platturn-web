@@ -28,7 +28,16 @@
         id="navbarResponsive"
       >
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item active">
+          <li class="nav-item">
+            <a class="nav-link" href="#services">Servicios</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#subscriptions">Suscripciones</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#contact">Contacto</a>
+          </li>
+          <li class="nav-item">
             <router-link to="/register" class="nav-link">
               Registrarse
               <span class="sr-only">(current)</span>
@@ -36,14 +45,8 @@
           </li>
           <li class="nav-item">
             <router-link to="/login" class="nav-link">
-              Ingresar
+              Iniciar sesión
             </router-link>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Servicios</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Contacto</a>
           </li>
         </ul>
       </div>
@@ -116,3 +119,15 @@ export default {
   }
 };
 </script>
+<style scoped>
+.navbar-dark {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;
+  font-size: 18px !important;
+}
+.navbar-dark .navbar-nav .nav-link:focus,
+.navbar-dark .navbar-nav .nav-link:hover {
+  color: #ffffff !important;
+}
+</style>
