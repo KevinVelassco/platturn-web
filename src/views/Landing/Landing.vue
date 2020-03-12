@@ -2,6 +2,11 @@
 <script>
 export default {
   name: "Landing",
+  computed: {
+    currentUser() {
+      return this.$store.state.auth.user;
+    }
+  },
   data() {
     return {
       plans: [
@@ -45,6 +50,11 @@ export default {
         }
       ]
     };
+  },
+  mounted() {
+    if (this.currentUser) {
+      this.$router.push("/dashboard");
+    }
   }
 };
 </script>

@@ -78,6 +78,14 @@ class UserService {
 
     return data;
   }
+
+  async validateToken() {
+    await axios.get(API_URL + "users/validate-token", {
+      headers: authHeader()
+    });
+
+    return true;
+  }
 }
 
 export default new UserService();

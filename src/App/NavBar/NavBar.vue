@@ -4,9 +4,9 @@
     <div class="container">
       <a href="#" @click.prevent="showSideBar">
         <img
-          src="../../assets/logo.png"
-          height="30px"
-          width="30px"
+          src="../../assets/logo1.png"
+          height="43px"
+          width="85px"
           alt="Platturn"
         />
       </a>
