@@ -2,7 +2,6 @@ import Vue from "vue";
 import Router from "vue-router";
 
 import Landing from "./views/Landing/Landing.vue";
-import Home from "./views/Home.vue";
 import Login from "./views/Login.vue";
 import Register from "./views/Register.vue";
 import ForgotPassword from "./views/ForgotPassword.vue";
@@ -13,15 +12,11 @@ Vue.use(Router);
 export const router = new Router({
   mode: "history",
   routes: [
+    // general routes
     {
       path: "/",
       name: "landing",
       component: Landing
-    },
-    {
-      path: "/home",
-      name: "home",
-      component: Home
     },
     {
       path: "/login",
@@ -44,6 +39,11 @@ export const router = new Router({
       component: Register
     },
     {
+      path: "/dashboard",
+      name: "dashboard",
+      component: () => import("./views/Home.vue")
+    },
+    {
       path: "/profile",
       name: "profile",
       // lazy-loaded
@@ -54,6 +54,17 @@ export const router = new Router({
       name: "changeEmail",
       // lazy-loaded
       component: () => import("./views/user/ChangeEmail.vue")
+    },
+    {
+      path: "/change-password",
+      name: "changePassword",
+      // lazy-loaded
+      component: () => import("./views/user/ChangePassword.vue")
+    },
+    {
+      path: "/update-user-info",
+      name: "updateUserInfo",
+      component: () => import("./views/user/UpdateUserInfo.vue")
     },
     {
       path: "/admin",
@@ -72,22 +83,26 @@ export const router = new Router({
       name: "user",
       // lazy-loaded
       component: () => import("./views/BoardUser.vue")
+    },
+    {
+      name: "company",
+      path: "/companies",
+      component: () => import("./views/companies/HandleCompanies.vue")
     }
   ]
 });
 
 router.beforeEach((to, from, next) => {
-  console.log("---------");
-  console.log("to", to);
-  console.log("---------");
+  // console.log("---------");
+  // console.log("to", to);
+  // console.log("---------");
 
   const publicPages = [
     "/",
     "/login",
     "/forgot-password",
     "/reset-password",
-    "/register",
-    "/home"
+    "/register"
   ];
   const authRequired = !publicPages.includes(to.path);
   const loggedIn = localStorage.getItem("user");

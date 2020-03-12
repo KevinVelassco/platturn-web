@@ -40,6 +40,44 @@ class UserService {
 
     return data;
   }
+
+  async changePassword(user) {
+    const response = await axios.post(
+      API_URL + "users/change-password",
+      {
+        oldPassword: user.currentPassword,
+        password: user.password,
+        repeatedPassword: user.repeatedPassword
+      },
+      { headers: authHeader() }
+    );
+
+    const { data } = response;
+
+    return data;
+  }
+
+  async updateUserData(user) {
+    const response = await axios.patch(
+      API_URL + "users/update-user-data",
+      user,
+      { headers: authHeader() }
+    );
+
+    const { data } = response;
+
+    return data;
+  }
+
+  async getUserScreens() {
+    const response = await axios.get(API_URL + "users/get-user-screens", {
+      headers: authHeader()
+    });
+
+    const { data } = response;
+
+    return data;
+  }
 }
 
 export default new UserService();

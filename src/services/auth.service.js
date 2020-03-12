@@ -50,6 +50,18 @@ class AuthService {
       repeatedPassword: user.repeatedPassword
     });
   }
+
+  refreshUser(user) {
+    const currentUser = JSON.parse(localStorage.getItem("user"));
+
+    delete currentUser.message;
+
+    const mergedUser = { ...currentUser, ...user };
+
+    localStorage.setItem("user", JSON.stringify(mergedUser));
+
+    return mergedUser;
+  }
 }
 
 export default new AuthService();

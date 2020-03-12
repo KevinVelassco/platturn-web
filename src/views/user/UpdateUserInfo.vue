@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <div class="col-md-4 offset-md-4">
+    <div class="col-md-12">
       <div class="card card-container">
         <img
           id="profile-img"
@@ -10,7 +10,7 @@
 
         <validation-observer v-slot="{ handleSubmit }">
           <form name="form" @submit.prevent="handleSubmit(onSubmit)">
-            <div v-if="!successful">
+            <div>
               <div class="form-group">
                 <label for="fullName">Nombre completo</label>
                 <validation-provider rules="required" v-slot="{ errors }">
@@ -66,50 +66,7 @@
                 </validation-provider>
               </div>
               <div class="form-group">
-                <label for="email">Email</label>
-                <validation-provider rules="required|email" v-slot="{ errors }">
-                  <input
-                    v-model="user.email"
-                    type="email"
-                    class="form-control"
-                    name="email"
-                    id="email"
-                  />
-                  <span class="validation">{{ errors[0] }}</span>
-                </validation-provider>
-              </div>
-              <div class="form-group">
-                <label for="password">Clave</label>
-                <validation-provider rules="required" v-slot="{ errors }">
-                  <input
-                    v-model="user.password"
-                    minlength="5"
-                    maxlength="100"
-                    type="password"
-                    class="form-control"
-                    name="password"
-                    id="password"
-                  />
-                  <span class="validation">{{ errors[0] }}</span>
-                </validation-provider>
-              </div>
-              <div class="form-group">
-                <label for="repeatedPassword">Confirmar clave</label>
-                <validation-provider rules="required" v-slot="{ errors }">
-                  <input
-                    v-model="user.repeatedPassword"
-                    minlength="5"
-                    maxlength="100"
-                    type="password"
-                    class="form-control"
-                    name="repeatedPassword"
-                    id="repeatedPassword"
-                  />
-                  <span class="validation">{{ errors[0] }}</span>
-                </validation-provider>
-              </div>
-              <div class="form-group">
-                <button class="btn btn-primary btn-block">Registrarse</button>
+                <button class="btn btn-primary btn-block">Actualizar</button>
               </div>
             </div>
           </form>
@@ -128,16 +85,11 @@
 </template>
 
 <script>
-import User from "../models/user";
+import User from "../../models/user";
+import userService from "../../services/user.service";
 import { ValidationProvider, ValidationObserver, extend } from "vee-validate";
-import { required, email } from "vee-validate/dist/rules";
-import { getFromObjectPathParsed } from "../utils/functions";
-
-// No message specified.
-extend("email", {
-  ...email,
-  message: "El email no es valido."
-});
+import { required } from "vee-validate/dist/rules";
+import { getFromObjectPathParsed } from "../../utils/functions";
 
 // Override the default message.
 extend("required", {
@@ -146,7 +98,7 @@ extend("required", {
 });
 
 export default {
-  name: "Register",
+  name: "UpdateUserInfo",
   data() {
     return {
       user: new User({}),
@@ -162,47 +114,31 @@ export default {
   computed: {
     loggedIn() {
       return this.$store.state.auth.status.loggedIn;
+    },
+    currentUser() {
+      return this.$store.state.auth.user;
     }
   },
   mounted() {
-    if (this.loggedIn) {
-      this.$router.push("/profile");
+    if (!this.loggedIn) {
+      this.$router.push("/login");
     }
+
+    this.user.fullName = this.currentUser.fullName;
+    this.user.document = this.currentUser.document;
+    this.user.address = this.currentUser.address;
+    this.user.phone = this.currentUser.phone;
   },
   methods: {
     onSubmit() {
-      if (this.user.password !== this.user.repeatedPassword) {
-        this.successful = false;
-        this.message = "las claves no coinciden.";
-        return;
-      }
-
       this.submitted = true;
 
-      this.$store.dispatch("auth/register", this.user).then(
-        registerDate => {
-          this.user.authUid = registerDate.authUid;
+      userService.updateUserData(this.user).then(
+        data => {
+          this.message = data.message;
+          this.successful = true;
 
-          this.$store.dispatch("auth/sendConfirmationEmail", this.user).then(
-            confirmationEmailData => {
-              this.message = confirmationEmailData.message;
-              this.successful = true;
-            },
-            error => {
-              this.successful = false;
-
-              this.message = getFromObjectPathParsed(
-                error,
-                "response.data.message"
-              );
-
-              this.message =
-                this.message ||
-                (error.response && error.response.data) ||
-                error.message ||
-                error.toString();
-            }
-          );
+          this.$store.dispatch("auth/refreshUser", data);
         },
         error => {
           this.successful = false;
@@ -235,6 +171,7 @@ span .validation {
 }
 
 .card-container.card {
+  max-width: 350px !important;
   padding: 40px 40px;
 }
 

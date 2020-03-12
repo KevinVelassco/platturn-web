@@ -5,31 +5,44 @@
         <validation-observer v-slot="{ handleSubmit }">
           <form name="form" @submit.prevent="handleSubmit(onSubmit)">
             <div class="form-group">
-              <label for="password">Clave</label>
+              <label for="currentPassword">Clave actual</label>
               <validation-provider rules="required" v-slot="{ errors }">
                 <input
-                  v-model="user.password"
-                  minlength="5"
-                  maxlength="100"
+                  v-model="user.currentPassword"
                   type="password"
                   class="form-control"
-                  name="password"
-                  id="password"
+                  name="currentPassword"
+                  id="currentPassword"
                 />
                 <span class="validation">{{ errors[0] }}</span>
               </validation-provider>
             </div>
             <div class="form-group">
-              <label for="repeatedPassword">Confirmar clave</label>
+              <label for="password">Nueva Clave</label>
+              <validation-provider rules="required" v-slot="{ errors }">
+                <input
+                  v-model="user.password"
+                  type="password"
+                  class="form-control"
+                  name="password"
+                  id="password"
+                  minlength="5"
+                  maxlength="10"
+                />
+                <span class="validation">{{ errors[0] }}</span>
+              </validation-provider>
+            </div>
+            <div class="form-group">
+              <label for="repeatedEmail">Confirmar clave</label>
               <validation-provider rules="required" v-slot="{ errors }">
                 <input
                   v-model="user.repeatedPassword"
-                  minlength="5"
-                  maxlength="100"
                   type="password"
                   class="form-control"
                   name="repeatedPassword"
                   id="repeatedPassword"
+                  minlength="5"
+                  maxlength="10"
                 />
                 <span class="validation">{{ errors[0] }}</span>
               </validation-provider>
@@ -43,7 +56,7 @@
                   v-show="loading"
                   class="spinner-border spinner-border-sm"
                 ></span>
-                <span>Cambiar</span>
+                <span>Cambiar clave</span>
               </button>
             </div>
           </form>
@@ -61,16 +74,11 @@
 </template>
 
 <script>
-import User from "../models/user";
+import User from "../../models/user";
+import userService from "../../services/user.service";
 import { ValidationProvider, ValidationObserver, extend } from "vee-validate";
-import { required, email } from "vee-validate/dist/rules";
-import { getFromObjectPathParsed } from "../utils/functions";
-
-// No message specified.
-extend("email", {
-  ...email,
-  message: "El email no es valido."
-});
+import { required } from "vee-validate/dist/rules";
+import { getFromObjectPathParsed } from "../../utils/functions";
 
 // Override the default message.
 extend("required", {
@@ -79,13 +87,13 @@ extend("required", {
 });
 
 export default {
-  name: "ResetPassword",
+  name: "ChangeEmail",
   data() {
     return {
       user: new User({}),
       loading: false,
-      successful: false,
       submitted: false,
+      successful: false,
       message: ""
     };
   },
@@ -97,61 +105,78 @@ export default {
     loggedIn() {
       return this.$store.state.auth.status.loggedIn;
     },
-    code() {
-      return this.$route.query.code;
+    currentUser() {
+      return this.$store.state.auth.user;
     }
   },
   created() {
-    if (this.loggedIn) {
-      this.$router.push("/profile");
-    }
-    if (!this.code) {
-      this.$router.push("/");
+    if (!this.loggedIn) {
+      this.$router.push("/login");
     }
   },
   methods: {
     onSubmit() {
-      this.loading = true;
-
-      const {
-        user: { password, repeatedPassword }
-      } = this;
-
-      if (password !== repeatedPassword) {
-        this.loading = false;
+      if (this.user.password !== this.user.repeatedPassword) {
         this.successful = false;
-        this.message = "las claves no coinciden.";
+        this.message = "las claves no coincided.";
+        return;
+      }
+      if (this.user.password === this.user.currentPassword) {
+        this.successful = false;
+        this.message = "la clave no puede ser igual a clave actual.";
         return;
       }
 
-      if (this.user.password && this.user.repeatedPassword) {
-        this.user.resetPasswordCode = this.code;
+      this.loading = true;
+      this.submitted = true;
 
-        this.$store.dispatch("auth/resetPassword", this.user).then(
-          data => {
-            this.loading = false;
-            this.successful = true;
-            this.message = data.message;
-            this.submitted = true;
-          },
-          error => {
-            this.loading = false;
-            this.successful = false;
-            this.submitted = true;
+      userService.changePassword(this.user).then(
+        data => {
+          this.user.email = this.currentUser.email;
 
-            this.message = getFromObjectPathParsed(
-              error,
-              "response.data.message"
-            );
+          this.$store.dispatch("auth/logout");
 
-            this.message =
-              this.message ||
-              (error.response && error.response.data) ||
-              error.message ||
-              error.toString();
-          }
-        );
-      }
+          this.$store.dispatch("auth/login", this.user).then(
+            () => {
+              this.loading = false;
+              this.successful = true;
+              this.message = data.message;
+            },
+            error => {
+              this.loading = false;
+              this.successful = false;
+              this.message = getFromObjectPathParsed(
+                error,
+                "response.data.message"
+              );
+
+              this.message =
+                this.message ||
+                (error.response && error.response.data) ||
+                error.message ||
+                error.toString();
+            }
+          );
+
+          this.loading = false;
+          this.successful = true;
+          this.message = data.message;
+        },
+        error => {
+          this.loading = false;
+          this.successful = false;
+          this.message = getFromObjectPathParsed(
+            error,
+            "response.data.message"
+          );
+
+          this.message =
+            this.message ||
+            (error.response && error.response.data) ||
+            error.message ||
+            error.toString();
+        }
+      );
     }
   }
 };

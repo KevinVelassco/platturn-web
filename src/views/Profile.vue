@@ -52,13 +52,20 @@
             </div>
             <div class="col-12 col-lg-4">
               <small>¿Clave insegura?</small>
-              <button class="btn btn-outline-primary btn-block">
+              <button
+                class="btn btn-outline-primary btn-block"
+                v-on:click="onChangePassword"
+              >
                 <span class="fa fa-user"></span> Cambiar clave
               </button>
             </div>
             <div class="col-12 col-lg-4">
               <small>¿Datos erroneos?</small>
-              <button type="button" class="btn btn-outline-success btn-block">
+              <button
+                type="button"
+                class="btn btn-outline-success btn-block"
+                v-on:click="onUpdateUserInfo"
+              >
                 <span class="fa fa-gear"></span> Actualizar perfil
               </button>
             </div>
@@ -88,6 +95,12 @@ export default {
   methods: {
     onChageEmail() {
       this.$router.push("/change-email");
+    },
+    onChangePassword() {
+      this.$router.push("/change-password");
+    },
+    onUpdateUserInfo() {
+      this.$router.push("/update-user-info");
     }
   }
 };
