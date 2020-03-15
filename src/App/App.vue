@@ -1,6 +1,10 @@
 <template>
   <div id="app">
-    <NavBar v-bind:currentUser="currentUser" v-bind:bus="bus" />
+    <NavBar
+      v-if="useNavBar"
+      v-bind:currentUser="currentUser"
+      v-bind:bus="bus"
+    />
 
     <SideBar v-bind:currentUser="currentUser" v-bind:bus="bus" ref="sideBar" />
 
@@ -28,6 +32,10 @@ export default {
   computed: {
     currentUser() {
       return this.$store.state.auth.user;
+    },
+    useNavBar() {
+      const currentPathRoute = this.$route.path === "/" ? true : false;
+      return this.$store.state.auth.user ? true : currentPathRoute;
     }
   },
   methods: {},
@@ -45,3 +53,13 @@ export default {
   }
 };
 </script>
+<style>
+.row {
+  margin-right: 0px !important;
+  margin-left: 0px !important;
+}
+.form-control:focus {
+  border-color: #439cfb !important;
+  box-shadow: 0 0 0 0.1rem rgba(0, 123, 255, 0.25) !important;
+}
+</style>

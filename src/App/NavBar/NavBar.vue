@@ -1,6 +1,6 @@
 <template>
   <!-- Navigation -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
     <div class="container">
       <a href="#" @click.prevent="showSideBar">
         <img
@@ -122,7 +122,6 @@ export default {
 .navbar-dark {
   background-color: #000000 !important;
   color: #ffffff !important;
-  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;
   font-size: 18px !important;
 }
 .navbar-dark .navbar-nav .nav-link:focus,
