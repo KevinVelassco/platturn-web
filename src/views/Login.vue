@@ -1,6 +1,8 @@
 <template>
   <div class="container-fluid img-login">
-    <div class="row align-items-center justify-content-center content">
+    <div
+      class="row align-items-center justify-content-center content pt-2 pb-2"
+    >
       <div class="col-12 col-sm-7 col-md-6 col-lg-5 col-xl-4 login shadow-sm">
         <div
           class="col-12 panel-title shadow-lg d-flex align-content-center flex-wrap"
@@ -159,7 +161,7 @@ export default {
 
 <style scoped>
 .img-login {
-  height: 100vh;
+  min-height: 100vh;
   background: linear-gradient(
       to bottom,
       rgba(92, 77, 66, 0.8) 0,
@@ -173,7 +175,7 @@ export default {
 }
 
 .content {
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .login {
