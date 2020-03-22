@@ -97,7 +97,6 @@ export default {
   width: 200px;
   position: fixed;
   z-index: 1021;
-  top: 0;
   left: 0;
   overflow-x: hidden;
   padding-top: 60px;
