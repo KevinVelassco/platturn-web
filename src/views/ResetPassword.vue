@@ -1,81 +1,79 @@
 <template>
-  <div class="row align-items-center justify-content-center img-reset-password">
-    <div class="reset-password shadow-sm">
-      <div class="row justify-content-center">
+  <div class="container-fluid img-reset-password">
+    <div
+      class="row align-items-center justify-content-center content pt-2 pb-2"
+    >
+      <div
+        class="col-12 col-sm-7 col-md-6 col-lg-5 col-xl-4 reset-password shadow-sm"
+      >
         <div
-          class="panel-title shadow-lg col-11 text-center d-flex align-content-center flex-wrap"
+          class="col-12 panel-title shadow-lg d-flex align-content-center flex-wrap"
         >
-          <div class="col-12">
+          <div class="col-12 text-center">
             <img
+              class="img-fluid"
               src="@/assets/logo1.png"
-              height="90px"
-              width="160px"
+              height="80px"
+              width="130px"
               alt="Platturn"
             />
           </div>
         </div>
-
-        <div class="col-11 text-center pl-0 pr-0">
-          <div class="col-12 change">
-            Cambio de Contraseña
-          </div>
-          <validation-observer v-slot="{ handleSubmit }">
-            <form name="form" @submit.prevent="handleSubmit(onSubmit)">
-              <div class="form-group">
-                <validation-provider rules="required" v-slot="{ errors }">
-                  <input
-                    v-model="user.password"
-                    minlength="5"
-                    maxlength="100"
-                    type="password"
-                    class="form-control"
-                    name="password"
-                    id="password"
-                    placeholder="Clave"
-                  />
-                  <span class="validation" v-if="errors[0]">{{
-                    errors[0]
-                  }}</span>
-                </validation-provider>
-              </div>
-              <div class="form-group">
-                <validation-provider rules="required" v-slot="{ errors }">
-                  <input
-                    v-model="user.repeatedPassword"
-                    minlength="5"
-                    maxlength="100"
-                    type="password"
-                    class="form-control"
-                    name="repeatedPassword"
-                    id="repeatedPassword"
-                    placeholder="Confirmar clave"
-                  />
-                  <span class="validation" v-if="errors[0]">{{
-                    errors[0]
-                  }}</span>
-                </validation-provider>
-              </div>
-              <div class="form-group">
-                <button
-                  class="btn btn-secondary btn-block"
-                  :disabled="loading || submitted"
-                >
-                  <span
-                    v-show="loading"
-                    class="spinner-border spinner-border-sm"
-                  ></span>
-                  <span>Cambiar</span>
-                </button>
-              </div>
-            </form>
-          </validation-observer>
-          <div
-            v-if="message"
-            class="alert"
-            :class="successful ? 'alert-success' : 'alert-danger'"
-          >
-            {{ message }}
-          </div>
+        <div class="col-12 title">
+          Cambio de contraseña
+        </div>
+        <validation-observer v-slot="{ handleSubmit }">
+          <form name="form" @submit.prevent="handleSubmit(onSubmit)">
+            <div class="form-group">
+              <validation-provider rules="required" v-slot="{ errors }">
+                <input
+                  v-model="user.password"
+                  minlength="5"
+                  maxlength="100"
+                  type="password"
+                  class="form-control"
+                  name="password"
+                  id="password"
+                  placeholder="Clave"
+                />
+                <span class="validation" v-if="errors[0]">{{ errors[0] }}</span>
+              </validation-provider>
+            </div>
+            <div class="form-group">
+              <validation-provider rules="required" v-slot="{ errors }">
+                <input
+                  v-model="user.repeatedPassword"
+                  minlength="5"
+                  maxlength="100"
+                  type="password"
+                  class="form-control"
+                  name="repeatedPassword"
+                  id="repeatedPassword"
+                  placeholder="Confirmar clave"
+                />
+                <span class="validation" v-if="errors[0]">{{ errors[0] }}</span>
+              </validation-provider>
+            </div>
+            <div class="form-group">
+              <button
+                class="btn btn-secondary btn-block"
+                :disabled="loading || submitted"
+              >
+                <span
+                  v-show="loading"
+                  class="spinner-border spinner-border-sm"
+                ></span>
+                <span>Cambiar</span>
+              </button>
+            </div>
+          </form>
+        </validation-observer>
+        <div
+          v-if="message"
+          class="alert card"
+          :class="successful ? 'alert-success' : 'alert-danger'"
+        >
+          {{ message }}
         </div>
       </div>
     </div>
@@ -181,7 +179,7 @@ export default {
 
 <style scoped>
 .img-reset-password {
-  height: 100vh;
+  min-height: 100vh;
   background: linear-gradient(
       to bottom,
       rgba(92, 77, 66, 0.8) 0,
@@ -192,20 +190,13 @@ export default {
   background-repeat: no-repeat;
   background-attachment: scroll;
   background-size: cover;
-  padding-top: 30px;
-  padding-left: 10px;
-  padding-right: 10px;
-  padding-bottom: 30px;
 }
 
-@media (max-height: 271px) {
-  .img-reset-password {
-    height: 100%;
-  }
+.content {
+  min-height: 100vh;
 }
 
 .reset-password {
-  width: 700px;
   background-color: #ffffff;
   border-radius: 3px;
   margin-top: 20px;
@@ -213,22 +204,23 @@ export default {
 
 .panel-title {
   margin-top: -20px;
-  height: 70px;
+  height: 120px;
   background-color: #ff8c12f7;
   border-radius: 3px;
 }
 
-.change {
+.title {
   color: #000000;
   font-size: 22px;
   font-weight: 700;
   padding-top: 10px;
   padding-bottom: 20px;
+  text-align: center;
 }
 
 span .validation {
   color: #c30000bd;
-  border: 1px solid #f4000038;
+  border: 1px solid #f4000005;
   border-radius: 5px;
   padding-left: 12px;
   padding-right: 12px;

@@ -18,7 +18,7 @@
           </div>
         </div>
         <div class="col-12 title">
-          Iniciar Sesión
+          Iniciar sesión
         </div>
         <validation-observer v-slot="{ handleSubmit }">
           <form name="form" @submit.prevent="handleSubmit(onSubmit)">
@@ -74,11 +74,11 @@
                   v-show="loading"
                   class="spinner-border spinner-border-sm"
                 ></span>
-                <span><b>Iniciar Sesión</b></span>
+                <span><b>Iniciar sesión</b></span>
               </button>
             </div>
             <div class="form-group">
-              <div v-if="message" class="alert alert-danger" role="alert">
+              <div v-if="message" class="alert alert-danger card" role="alert">
                 {{ message }}
               </div>
             </div>
