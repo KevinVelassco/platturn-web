@@ -96,7 +96,7 @@ export default {
   height: 100%;
   width: 200px;
   position: fixed;
-  z-index: 1;
+  z-index: 1021;
   top: 0;
   left: 0;
   overflow-x: hidden;
