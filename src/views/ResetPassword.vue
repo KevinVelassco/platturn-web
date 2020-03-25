@@ -1,11 +1,30 @@
 <template>
-  <div class="row">
-    <div class="col-md-4 offset-md-4">
-      <div class="card card-container">
+  <div class="container-fluid img-reset-password">
+    <div
+      class="row align-items-center justify-content-center content pt-2 pb-2"
+    >
+      <div
+        class="col-12 col-sm-7 col-md-6 col-lg-5 col-xl-4 reset-password shadow-sm"
+      >
+        <div
+          class="col-12 panel-title shadow-lg d-flex align-content-center flex-wrap"
+        >
+          <div class="col-12 text-center">
+            <img
+              class="img-fluid"
+              src="@/assets/logo1.png"
+              height="80px"
+              width="130px"
+              alt="Platturn"
+            />
+          </div>
+        </div>
+        <div class="col-12 title">
+          Cambio de contraseña
+        </div>
         <validation-observer v-slot="{ handleSubmit }">
           <form name="form" @submit.prevent="handleSubmit(onSubmit)">
             <div class="form-group">
-              <label for="password">Clave</label>
               <validation-provider rules="required" v-slot="{ errors }">
                 <input
                   v-model="user.password"
@@ -15,12 +34,12 @@
                   class="form-control"
                   name="password"
                   id="password"
+                  placeholder="Clave"
                 />
-                <span class="validation">{{ errors[0] }}</span>
+                <span class="validation" v-if="errors[0]">{{ errors[0] }}</span>
               </validation-provider>
             </div>
             <div class="form-group">
-              <label for="repeatedPassword">Confirmar clave</label>
               <validation-provider rules="required" v-slot="{ errors }">
                 <input
                   v-model="user.repeatedPassword"
@@ -30,13 +49,14 @@
                   class="form-control"
                   name="repeatedPassword"
                   id="repeatedPassword"
+                  placeholder="Confirmar clave"
                 />
-                <span class="validation">{{ errors[0] }}</span>
+                <span class="validation" v-if="errors[0]">{{ errors[0] }}</span>
               </validation-provider>
             </div>
             <div class="form-group">
               <button
-                class="btn btn-primary btn-block"
+                class="btn btn-secondary btn-block"
                 :disabled="loading || submitted"
               >
                 <span
@@ -50,7 +70,7 @@
         </validation-observer>
         <div
           v-if="message"
-          class="alert"
+          class="alert card"
           :class="successful ? 'alert-success' : 'alert-danger'"
         >
           {{ message }}
@@ -158,29 +178,56 @@ export default {
 </script>
 
 <style scoped>
-label {
-  display: block;
-  margin-top: 10px;
+.img-reset-password {
+  min-height: 100vh;
+  background: linear-gradient(
+      to bottom,
+      rgba(92, 77, 66, 0.8) 0,
+      rgba(92, 77, 66, 0.8) 100%
+    ),
+    url("../assets/bg-masthead.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-size: cover;
+}
+
+.content {
+  min-height: 100vh;
+}
+
+.reset-password {
+  background-color: #ffffff;
+  border-radius: 3px;
+  margin-top: 20px;
+}
+
+.panel-title {
+  margin-top: -20px;
+  height: 120px;
+  background-color: #ff8c12f7;
+  border-radius: 3px;
+}
+
+.title {
+  color: #000000;
+  font-size: 22px;
+  font-weight: 700;
+  padding-top: 10px;
+  padding-bottom: 20px;
+  text-align: center;
 }
 
 span .validation {
-  color: red;
-}
-
-.card-container.card {
-  padding: 20px 20px;
-}
-
-.card {
-  background-color: #f7f7f7;
-  padding: 20px 25px 30px;
-  margin: 0 auto 25px;
-  margin-top: 50px;
-  -moz-border-radius: 2px;
-  -webkit-border-radius: 2px;
-  border-radius: 2px;
-  -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-  -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+  color: #c30000bd;
+  border: 1px solid #f4000005;
+  border-radius: 5px;
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  font-size: 12px;
+  font-weight: 700;
+  background-color: #c3000012;
 }
 </style>
