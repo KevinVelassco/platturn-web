@@ -14,7 +14,9 @@ import {
   faSignOutAlt,
   faEdit,
   faUserCircle,
-  faChalkboardTeacher
+  faChalkboardTeacher,
+  faCheck,
+  faTimes
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
@@ -25,7 +27,9 @@ library.add(
   faSignOutAlt,
   faEdit,
   faUserCircle,
-  faChalkboardTeacher
+  faChalkboardTeacher,
+  faCheck,
+  faTimes
 );
 
 Vue.config.productionTip = false;
