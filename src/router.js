@@ -6,6 +6,7 @@ import Login from "./views/Login.vue";
 import Register from "./views/Register.vue";
 import ForgotPassword from "./views/ForgotPassword.vue";
 import ResetPassword from "./views/ResetPassword.vue";
+import Plans from "./views/Plans/Plans.vue";
 
 Vue.use(Router);
 
@@ -34,9 +35,14 @@ export const router = new Router({
       component: ResetPassword
     },
     {
-      path: "/register",
+      path: "/register/:code",
       name: "register",
       component: Register
+    },
+    {
+      path: "/plans",
+      name: "plans",
+      component: Plans
     },
     {
       path: "/dashboard",
@@ -102,7 +108,8 @@ router.beforeEach((to, from, next) => {
     "/login",
     "/forgot-password",
     "/reset-password",
-    "/register"
+    "/register/" + to.params.code,
+    "/plans"
   ];
   const authRequired = !publicPages.includes(to.path);
   const loggedIn = localStorage.getItem("user");

@@ -62,7 +62,7 @@
                   </router-link>
                 </div>
                 <div class="col-8 text-right pr-0 pl-0">
-                  <router-link to="/register" class="link" id="register">
+                  <router-link to="/plans" class="link" id="register">
                     ¿No tienes una cuenta? Regístrate
                   </router-link>
                 </div>

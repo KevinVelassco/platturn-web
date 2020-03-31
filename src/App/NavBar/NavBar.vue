@@ -38,9 +38,8 @@
             <a class="nav-link" href="#contact">Contacto</a>
           </li>
           <li class="nav-item">
-            <router-link to="/register" class="nav-link">
+            <router-link to="/plans" class="nav-link">
               Registrarse
-              <span class="sr-only">(current)</span>
             </router-link>
           </li>
           <li class="nav-item">
