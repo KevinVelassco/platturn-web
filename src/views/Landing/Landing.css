@@ -1,11 +1,5 @@
-.navbar-dark{
-    background-color: #000000;
-    color: #ffffff;
-    box-shadow: 0 1rem 3rem rgba(0,0,0,.175)!important;
-}
-
 .landing{
-    height: 100vh;
+    min-height: 100vh;
     background: linear-gradient(to bottom,rgba(92,77,66,.8) 0,rgba(92,77,66,.8) 100%),url("../../assets/bg-masthead.jpg");
     background-position: center;
     background-repeat: no-repeat;
@@ -21,155 +15,48 @@
 
 .landing #subtitle{
     color: #ffffff;
-    font-weight: 400;
+    font-weight: 500;
     font-size: 15px;
     margin-bottom: 30px;
 }
-#logo{
-    background-color: #ffffff;
-    width:30px;
-    height:30px;
-    border-radius:150px;
-    color: #000000;
-    font-weight: 700;
-    text-align: center;
-}
 
-#mainNav .navbar-toggler {
-    font-size: 12px;
-    right: 0;
-    padding: 13px;
-    text-transform: uppercase;
-    color: white;
-    border: 0;
-    background-color: #fed136;
-    font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-}
-
-/*#mainNav .navbar-brand {
-    color: #fed136;
-    font-family: 'Kaushan Script', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-}
-
-#mainNav .navbar-brand.active, #mainNav .navbar-brand:active, #mainNav .navbar-brand:focus, #mainNav .navbar-brand:hover {
-    color: #fec503;
-}
-
-#mainNav .navbar-nav .nav-item .nav-link {
-    color: white;
-    font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-}
-
-#mainNav .navbar-nav .nav-item .nav-link.active, #mainNav .navbar-nav .nav-item .nav-link:hover {
-    color: #fed136;
-}*/
-
-#informacion{
+#information{
     background-color:#000000;
-    height: 100vh;
+    min-height: 100vh;
+    font-weight: 500;
+    font-size: 15px;
 }
 
-/*@media (min-width: 768px) {
-    #informacion{
-        height: 100vh;
-    }
-}*/
-
-#informacion .title{
+#information .title{
     color: #ffffff;
     margin-bottom: 30px;
 }
 
-#informacion .content{
+#information .content{
     margin-bottom: 30px;
 }
 
-.subscriptions{
-    background-color:#ececec87;    
-}
-
-@media (min-width: 768px) {
-    .subscriptions{
-        height: 100vh;
-    }
-}
-
-.subscriptions .content-subscrip{
-    padding-top: 15px;
-    padding-bottom: 15px;
-}
-
-.subscriptions .content-subscrip .subscription{
-    background-color: white;
-    border-radius: 2px;
-    height: 480px;
-}
-.subscriptions .content-subscrip .shadow-sm:hover{
-    box-shadow: 0 1rem 3rem rgba(0,0,0,.175)!important;
-}
-
-.subscriptions .content-subscrip .title{
-    border-radius: 30px;
-    color: white;
-    padding-left: 10px;
-    padding-right: 10px;   
-}
-
-.subscriptions .content-subscrip .subscription .precio{
-    font-size: 30px;
-}
-
-.btn-danger {
-    color: #fff !important;
-    background-color: red !important;
-    border-color:red !important;
-}
-.btn-danger:hover {
-    color: #fff !important;
-    background-color:#da0000 !important;
-    border-color:red !important;
-}
-.btn-danger:not(:disabled):not(.disabled).active, .btn-danger:not(:disabled):not(.disabled):active, .show>.btn-danger.dropdown-toggle {
-    color: #fff !important;
-    background-color: red !important;
-    border-color: red !important;
-}
-
-.btn-danger.focus, .btn-danger:focus {
-    color: #fff !important;
-    background-color: #da0000 !important;
-    border-color: #da0000 !important;
-    box-shadow: 0 0 0 0.2rem rgba(225,83,97,.5) !important;
-}
-.esfera {
-    width: 21px;
-    height: 21px;
-    background-color: green;
-    background: radial-gradient(at top left, #0F0 20%, #040);
-    -ms-border-radius: 150px;
-    -moz-border-radius: 150px;
-    -webkit-border-radius: 150px;
-    -o-border-radius: 150px;
-    border-radius: 150px;
-    margin: 0px auto;
-  }
-
 .services{
-    background-color:#ffffff;    
+    min-height: 100vh;
+    background-color:#ffffff;
+    padding-top: 30px;
+    padding-bottom: 30px;  
 }
 
-@media (min-width: 768px) {
-    .services{
-        height: 100vh;
-    }
+#services .icon{
+    font-size: 90px;
+    padding: 20px;
+    background-color: #ca7918;
+    border-radius: 100%;
+    color: #ffffff;
 }
 
 .contact{
-    height: 100vh;
+    min-height: 100vh;
+    background-color:#000000;
+    background-image: url("../../assets/map-image.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-size: cover;
 }
-
-/*@media (min-width: 768px) {
-    .contact{
-        height: 100vh;
-    }
-}*/

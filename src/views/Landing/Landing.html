@@ -1,114 +1,85 @@
 <div>
     <div class="row landing align-items-center justify-content-center" id="page-landing">
-        <!--<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
-            <div class="container">
-                <a class="navbar-brand" href="#page-landing">
-                    <div class="row">
-                        <div class="col-3">
-                            <div id="logo">P</div>
-                        </div>
-                        <div class="col-9">Platturn</div>                            
-                    </div>                        
-                </a>
-                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
-                    data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    Menu
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarResponsive">
-                    <ul class="navbar-nav text-uppercase ml-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#services">Servicios</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#subscriptions">Suscripciones</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#contact">Contacto</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>-->
-        <div class="col-sm-8 col-lg-7 text-center">
-            <p id="title">PLATTUR</p>
-            <p id="subtitle">Sostenga una excelente relación con su fuerza laboral estableciendo procesos transparentes asociados los cargos que genera cuando trabaja en horarios especiales. Esta aplicación permite que los pequeños empresarios paguen todos los recargos de ley a sus empleados y gestionar sus horas extras de manera adecuada.</p>
-            <a type="button" class="btn btn-light" href="#informacion">SABER MÁS</a>
+        <div class="col-sm-8 col-lg-7 text-center pb-2">
+            <p id="title">PLATTURN</p>
+            <p id="subtitle">Sostenga una excelente relación con su fuerza laboral estableciendo procesos transparentes
+                asociados los cargos que genera cuando trabaja en horarios especiales. Esta aplicación permite que los
+                pequeños empresarios paguen todos los recargos de ley a sus empleados y gestionar sus horas extras de
+                manera adecuada.</p>
+            <a type="button" class="btn btn-light font-weight-bold" href="#information">SABER MÁS</a>
         </div>
     </div>
-    <div class="row align-items-center justify-content-center" id="informacion">       
-        <div class="col-lg-6 text-center">
-            <h2 class="text-uppercase title">¡Tenemos lo que necesitas!</h2>         
+    <div class="row align-items-center justify-content-center" id="information">
+        <div class="col-sm-11 col-md-8 col-lg-6 text-center pt-2 pb-2">
+            <h2 class="text-uppercase title">¡Tenemos lo que necesitas!</h2>
             <p class="text-muted content">¡Start Bootstrap tiene todo lo que necesita para poner en
                 funcionamiento su nuevo sitio web en muy poco tiempo! ¡Elija uno de nuestros
-                temas de código abierto, de descarga gratuita y fáciles de usar! ¡Sin 
+                temas de código abierto, de descarga gratuita y fáciles de usar! ¡Sin
                 ataduras!</p>
-                <a type="button" class="btn btn-light" href="#services">EMPEZAR</a>
-        </div>             
+            <a type="button" class="btn btn-light font-weight-bold" href="#services">EMPEZAR</a>
+        </div>
     </div>
     <div class="row align-items-center services" id="services">
         <div class="col-lg-12 text-center">
             <h2 class="text-uppercase">Services</h2>
             <h3 class="text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
         </div>
-        <div class="col-lg-4 text-center">
+        <div class="col-md-4 text-center">
+            <font-awesome-icon icon="check" class="icon mt-4 mb-4" />
             <h4>E-Commerce</h4>
             <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam
                 architecto quo inventore harum ex magni, dicta impedit.</p>
         </div>
-        <div class="col-lg-4 text-center">
+        <div class="col-md-4 text-center">
+            <font-awesome-icon icon="check" class="icon mt-4 mb-4" />
             <h4>Responsive Design</h4>
             <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam
                 architecto quo inventore harum ex magni, dicta impedit.</p>
         </div>
-        <div class="col-lg-4 text-center">
+        <div class="col-md-4 text-center">
+            <font-awesome-icon icon="check" class="icon mt-4 mb-4" />
             <h4>Web Security</h4>
             <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam
                 architecto quo inventore harum ex magni, dicta impedit.</p>
         </div>
     </div>
-    <div class="row align-items-center justify-content-center subscriptions" id="subscriptions">
-        <div v-for="(plan, index) of plans" :key="index" class="col-10 col-sm-7 col-md-4 col-lg-3 content-subscrip">
-            <div class="col-lg-12 subscription shadow-sm">
-                <div class="col-sm-8 offset-sm-2">
-                    <br/><p class="text-center font-weight-bold title" :style="{'background-color': plan.color}">{{plan.description}}</p>
+    <div class="row align-items-center justify-content-center contact" id="contact">
+        <div class="col-md-12 col-lg-10 text-center pt-5 pb-5">
+            <h2 class="text-uppercase mb-5 text-white">Contáctenos</h2>
+            <form>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <div class="form-group mb-4">
+                            <input type="text" class="form-control" placeholder="Nombre">
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <input type="number" class="form-control" placeholder="Teléfono">
+                        </div>
+
+                        <div class="form-group">
+                            <input type="email" class="form-control" placeholder="Email">
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 mt-1">
+                        <div class="form-group">
+                            <textarea class="form-control" rows="6" placeholder="Mensaje"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-12 pt-4">
+                        <button type="button" class="btn btn-light font-weight-bold">Enviar</button>
+                    </div>                    
                 </div>
-                <div class="col-12 text-center font-weight-bold mt-5">                       
-                    {{plan.priceCode}} <span class="precio">{{plan.priceValue}}</span> {{plan.paymentType}}
-                </div>
-                <div class="col-12 text-center mt-4 mb-5">                       
-                    <button type="button" class="btn btn-danger ">Ver mas</button>
-                </div>
-                <div class="row" v-for="feature of plan.features">                       
-                    <div class="col-2"><div class=" esfera"></div></div>
-                    <div class="col-9">{{feature}}</div>                        
-                </div>                   
-            </div>
+            </form>
         </div>
     </div>
-    <div class="row align-items-center justify-content-center contact" id="contact">
-        <div class="col-md-9 col-lg-10 text-center">
-            <h2 class="text-uppercase">CONTACTOS</h2>
-            <form>
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Nombre">
-                </div>
-                  
-                <div class="form-group">
-                    <input type="number" class="form-control" placeholder="Teléfono">
-                </div>
-
-                <div class="form-group">
-                    <input type="email" class="form-control" placeholder="Email">
-                </div>
-
-                <div class="form-group">
-                    <textarea  class="form-control" rows="5" placeholder="Mensaje"></textarea>
-                </div>
-                
-                <button type="button" class="btn btn-primary">Enviar</button>
-              </form>
-        </div>        
-    </div>
+    <footer class="footer">
+        <div class="container">
+          <div class="row align-items-center">
+            <div class="col-12 text-center pt-2 pb-2 ">
+              <span class="copyright font-weight-bold">Copyright &copy; 2020 - Platturn</span>
+            </div>
+          </div>
+        </div>
+      </footer>
 </div>

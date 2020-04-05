@@ -2,7 +2,15 @@
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
     <div class="container">
-      <a href="#" @click.prevent="showSideBar">
+      <a href="#" @click.prevent="showSideBar" v-if="currentUser">
+        <img
+          src="../../assets/logo1.png"
+          height="43px"
+          width="75px"
+          alt="Platturn"
+        />
+      </a>
+      <a href="#" v-if="!currentUser">
         <img
           src="../../assets/logo1.png"
           height="43px"
@@ -30,9 +38,6 @@
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
             <a class="nav-link" href="#services">Servicios</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#subscriptions">Suscripciones</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#contact">Contacto</a>
