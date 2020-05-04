@@ -217,17 +217,4 @@ export default {
   padding-bottom: 20px;
   text-align: center;
 }
-
-span .validation {
-  color: #c30000bd;
-  border: 1px solid #f4000005;
-  border-radius: 5px;
-  padding-left: 12px;
-  padding-right: 12px;
-  padding-top: 2px;
-  padding-bottom: 2px;
-  font-size: 12px;
-  font-weight: 700;
-  background-color: #c3000012;
-}
 </style>

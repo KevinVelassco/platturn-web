@@ -37,6 +37,7 @@ class CompanyService {
     delete companyToSend.id;
     delete companyToSend.created_at;
     delete companyToSend.updated_at;
+    delete companyToSend.actions;
 
     const response = await axios.patch(
       API_URL + "companies/" + company.id,
