@@ -1,8 +1,8 @@
 <template>
-  <div class="card card-container">
-    <validation-observer ref="form" v-slot="{ handleSubmit }">
-      <form name="form" @submit.prevent="handleSubmit(onSubmit)">
-        <div>
+  <div class="row">
+    <div class="col-md-12">
+      <validation-observer ref="form" v-slot="{ handleSubmit }">
+        <form name="form" @submit.prevent="handleSubmit(onSubmitCreate)">
           <div class="form-group">
             <label for="name">Nombre</label>
             <validation-provider rules="required" v-slot="{ errors }">
@@ -59,47 +59,31 @@
             </validation-provider>
           </div>
           <div class="form-group">
+            <div v-if="message" class="alert alert-danger" role="alert">
+              {{ message }}
+            </div>
+          </div>
+          <div class="form-group">
             <button class="btn btn-success btn-block" :disabled="loading">
               <span
                 v-show="loading"
                 class="spinner-border spinner-border-sm"
               ></span>
-              Crear
+              <span>Crear</span>
             </button>
           </div>
-          <div class="form-group">
-            <button
-              class="btn btn-secondary btn-block"
-              :disabled="loading"
-              v-on:click.prevent="cancelCreating"
-            >
-              <span
-                v-show="loading"
-                class="spinner-border spinner-border-sm"
-              ></span>
-              Cancelar
-            </button>
-          </div>
-        </div>
-      </form>
-    </validation-observer>
-
-    <div
-      v-if="message"
-      class="alert"
-      :class="successful ? 'alert-success' : 'alert-danger'"
-    >
-      {{ message }}
+        </form>
+      </validation-observer>
     </div>
   </div>
 </template>
-
 <script>
 import Company from "../../models/company";
 import companyService from "../../services/company.service";
 import { ValidationProvider, ValidationObserver, extend } from "vee-validate";
 import { required, email } from "vee-validate/dist/rules";
 import { getFromObjectPathParsed } from "../../utils/functions";
+import message from "../../utils/message";
 
 // No message specified.
 extend("email", {
@@ -129,87 +113,37 @@ export default {
       message: ""
     };
   },
+  methods: {
+    async onSubmitCreate() {
+      this.loading = true;
+
+      console.log("onSubmit");
+
+      try {
+        await companyService.createCompany(this.company);
+        console.log("PRE onSubmit end-creating");
+        this.bus.$emit("end-creating");
+        console.log("onSubmit end-creating");
+        setTimeout(() => {
+          this.bus.$emit("load-companies");
+        }, 2000);
+
+        message.addMessageSuccess("Registro creado exitosamente.");
+
+        this.successful = true;
+        this.loading = false;
+      } catch (error) {
+        console.error("error", error);
+        this.successful = false;
+        this.loading = false;
+        this.message = getFromObjectPathParsed(error, "response.data.message");
+      }
+    }
+  },
   components: {
     ValidationProvider,
     ValidationObserver
-  },
-  computed: {
-    loggedIn() {
-      return this.$store.state.auth.status.loggedIn;
-    }
-  },
-  mounted() {
-    if (!this.loggedIn) {
-      this.$router.push("/login");
-    }
-  },
-  methods: {
-    onSubmit() {
-      this.loading = true;
-
-      companyService.createCompany(this.company).then(
-        data => {
-          this.successful = true;
-          this.message = data.message;
-          this.loading = false;
-
-          this.company.name = "";
-          this.company.code = "";
-          this.company.document = "";
-          this.company.email = "";
-
-          // Wait until the models are updated in the UI
-          this.$nextTick(() => {
-            // console.log(this.$refs.form.$el);
-            this.$refs.form.$el.blur();
-            this.$refs.form.reset();
-            this.bus.$emit("load-companies");
-          });
-        },
-        error => {
-          this.successful = false;
-
-          this.message = getFromObjectPathParsed(
-            error,
-            "response.data.message"
-          );
-
-          this.message =
-            this.message ||
-            (error.response && error.response.data) ||
-            error.message ||
-            error.toString();
-
-          this.loading = false;
-        }
-      );
-    },
-    cancelCreating() {
-      this.bus.$emit("cancel-creating");
-    }
   }
 };
 </script>
-
-<style scoped>
-span .validation {
-  color: red;
-}
-
-.card-container.card {
-  padding: 1rem 1rem;
-}
-
-.card {
-  background-color: #f7f7f7;
-  padding: 20px 25px 30px;
-  margin: 0 auto 25px;
-  margin-top: 50px;
-  -moz-border-radius: 2px;
-  -webkit-border-radius: 2px;
-  border-radius: 2px;
-  -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-  -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-}
-</style>
+<style scoped></style>
